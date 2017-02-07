@@ -1,0 +1,101 @@
+Hong Kong, Hong Kong   
+Singapore, Singapore   
+Stockholm, Sweden    
+London, UK  
+Cartagena, Colombia
+Kuala Lumpur, Malaysia    
+La Habana, Cuba   
+New York City, USA 
+Antalya, Turkey  
+Paris, France  
+Istanbul, Turkey  
+Rome, Italy   
+Dubai, UAE 
+Guangzhou, China   
+Montevideo, Uruguay    
+Santiago, Chile   
+Porto, Portugal 
+Pattaya, Thailand    
+Taipei, Taiwan  
+Prague, Czech Republic
+Shanghai, China   
+Las Vegas, USA 
+Miami, USA 
+Barcelona, Spain   
+Manchester, UK  
+Beijing, China   
+Los Angeles, USA 
+Budapest, Hungary 
+Vienna, Austria 
+Amsterdam, Netherlands
+Sofia, Bulgaria
+Madrid, Spain  
+Orlando, USA 
+Ho Chi Minh City, Vietnam 
+Lima, Peru    
+Berlin, Germany 
+Tokyo, Japan   
+Warsaw, Poland
+Chennai, India   
+Cairo, Egypt   
+Nairobi, Kenya   
+Hangzhou, China   
+Milan, Italy   
+San Francisco, USA 
+Buenos Aires, Argentina   
+Venice, Italy   
+Mexico City, Mexico
+Athens, Greece
+Copenhagen, Denmark
+Mugla, Turkey
+Mumbai, India
+Denpasar, Indonesia   
+Delhi, India   
+Toronto, Canada  
+Caracas, Venezuela   
+St. Petersburg, Russia  
+Burgas, Bulgaria    
+Sydney, Australia   
+Djerba, Tunisia 
+Munich, Germany 
+Johannesburg, South Africa    
+Cancún, Mexico  
+Edirne, Turkey  
+Bogota, Colombia   
+Bucharest, Romania 
+Punta Cana, Dominican Republic
+Granada, Spain 
+Jaipur, India   
+Brussels, Belgium 
+Nice, France  
+Guayaquil, Ecuador    
+Munich, Germany   
+Lisbon, Portugal    
+Cozumel, Mexico   
+Marrakech, Morocco 
+Jakarta, Indonesia   
+Manama, Bahrain 
+Hanoi, Vietnam 
+Honolulu, USA 
+Manila, Philippines 
+Medellin, Colombia   
+Auckland, New Zealand 
+Siem Reap, Cambodia    
+Sousse, Tunisia 
+Amman, Jordan  
+Vancouver, Canada  
+Abu Dhabi, UAE 
+Kiev, Ukraine 
+Doha, Qatar   
+Florence, Italy   
+Rio de Janeiro, Brazil  
+Melbourne, Australia   
+Washington DC, USA 
+Riyadh, Saudi Arabia    
+Christchurch, New Zealand 
+Frankfurt, Germany 
+Dresden, Germany  
+Sao Paulo, Brazil  
+Seattle, USA    
+Kolkata, India   
+Nanjing, China
