@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <form action="/search.json" method="POST" id="main-search">
+        <div>
+            <h2>Where are you going next?:</h2>
+                <input id= "city-search" type="text" name="city_search" required>
+                <input id="search-button" type="submit" value="Search">
+        </div>
+    </form>
+
+{% endblock %}

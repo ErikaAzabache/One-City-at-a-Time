@@ -1,16 +1,16 @@
 Hong Kong, Hong Kong   
 Singapore, Singapore   
 Stockholm, Sweden    
-London, UK  
+London, United Kingdom  
 Cartagena, Colombia
 Kuala Lumpur, Malaysia    
 La Habana, Cuba   
-New York City, USA 
+New York City, United States 
 Antalya, Turkey  
 Paris, France  
 Istanbul, Turkey  
 Rome, Italy   
-Dubai, UAE 
+Dubai, United Arab Emirates 
 Guangzhou, China   
 Montevideo, Uruguay    
 Santiago, Chile   
@@ -19,18 +19,18 @@ Pattaya, Thailand
 Taipei, Taiwan  
 Prague, Czech Republic
 Shanghai, China   
-Las Vegas, USA 
-Miami, USA 
+Las Vegas, United States 
+Miami, United States 
 Barcelona, Spain   
-Manchester, UK  
+Manchester, United Kingdom  
 Beijing, China   
-Los Angeles, USA 
+Los Angeles, United States 
 Budapest, Hungary 
 Vienna, Austria 
 Amsterdam, Netherlands
 Sofia, Bulgaria
 Madrid, Spain  
-Orlando, USA 
+Orlando, United States 
 Ho Chi Minh City, Vietnam 
 Lima, Peru    
 Berlin, Germany 
@@ -41,7 +41,7 @@ Cairo, Egypt
 Nairobi, Kenya   
 Hangzhou, China   
 Milan, Italy   
-San Francisco, USA 
+San Francisco, United States 
 Buenos Aires, Argentina   
 Venice, Italy   
 Mexico City, Mexico
@@ -59,7 +59,7 @@ Sydney, Australia
 Djerba, Tunisia 
 Munich, Germany 
 Johannesburg, South Africa    
-Cancún, Mexico  
+Cancun, Mexico  
 Edirne, Turkey  
 Bogota, Colombia   
 Bucharest, Romania 
@@ -76,7 +76,7 @@ Marrakech, Morocco
 Jakarta, Indonesia   
 Manama, Bahrain 
 Hanoi, Vietnam 
-Honolulu, USA 
+Honolulu, United States 
 Manila, Philippines 
 Medellin, Colombia   
 Auckland, New Zealand 
@@ -84,18 +84,18 @@ Siem Reap, Cambodia
 Sousse, Tunisia 
 Amman, Jordan  
 Vancouver, Canada  
-Abu Dhabi, UAE 
+Abu Dhabi, United Arab Emirates
 Kiev, Ukraine 
 Doha, Qatar   
 Florence, Italy   
 Rio de Janeiro, Brazil  
 Melbourne, Australia   
-Washington DC, USA 
+Washington DC, United States 
 Riyadh, Saudi Arabia    
 Christchurch, New Zealand 
 Frankfurt, Germany 
 Dresden, Germany  
 Sao Paulo, Brazil  
-Seattle, USA    
+Seattle, United States    
 Kolkata, India   
 Nanjing, China

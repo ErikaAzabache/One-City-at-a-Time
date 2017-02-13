@@ -1,0 +1,101 @@
+Hong Kong, Hong Kong, HK   
+Singapore, Singapore, SG   
+Stockholm, Sweden, SE    
+London, UK, GB  
+Cartagena, Colombia, CO
+Kuala Lumpur, Malaysia, MY    
+La Habana, Cuba, CU   
+New York City, USA, US 
+Antalya, Turkey, TR  
+Paris, France, FR  
+Istanbul, Turkey, TR  
+Rome, Italy, IT   
+Dubai, UAE, AE 
+Guangzhou, China, CN   
+Montevideo, Uruguay, UY    
+Santiago, Chile, CL   
+Porto, Portugal, PT 
+Pattaya, Thailand, TH    
+Taipei, Taiwan, TW  
+Prague, Czech Republic, CZ
+Shanghai, China, CN   
+Las Vegas, USA, US 
+Miami, USA, US 
+Barcelona, Spain, ES   
+Manchester, UK, GB  
+Beijing, China, CN   
+Los Angeles, USA, US 
+Budapest, Hungary, HU 
+Vienna, Austria, AT 
+Amsterdam, Netherlands, NL
+Sofia, Bulgaria, BG
+Madrid, Spain, ES  
+Orlando, USA, US 
+Ho Chi Minh City, Vietnam, VN 
+Lima, Peru, PE    
+Berlin, Germany, DE 
+Tokyo, Japan, JP   
+Warsaw, Poland, PL
+Chennai, India, IN   
+Cairo, Egypt, EG   
+Nairobi, Kenya, KE   
+Hangzhou, China, CN   
+Milan, Italy, IT   
+San Francisco, USA, US 
+Buenos Aires, Argentina, AR   
+Venice, Italy, IT   
+Mexico City, Mexico, MX
+Athens, Greece, GR
+Copenhagen, Denmark, DK
+Mugla, Turkey, TR
+Mumbai, India, IN
+Denpasar, Indonesia, ID   
+Delhi, India, IN   
+Toronto, Canada, CA  
+Caracas, Venezuela, VE   
+St. Petersburg, Russia, RU  
+Burgas, Bulgaria, BG    
+Sydney, Australia, AU   
+Djerba, Tunisia, TN 
+Munich, Germany, DE 
+Johannesburg, South Africa, ZA    
+Cancún, Mexico, MX  
+Edirne, Turkey, TR  
+Bogota, Colombia, CO   
+Bucharest, Romania, RO 
+Punta Cana, Dominican Republic, DO
+Granada, Spain, ES 
+Jaipur, India, IN   
+Brussels, Belgium, BE 
+Nice, France, FR  
+Guayaquil, Ecuador, EC    
+Munich, Germany, DE   
+Lisbon, Portugal, PT    
+Cozumel, Mexico, MX   
+Marrakech, Morocco, MA 
+Jakarta, Indonesia, ID   
+Manama, Bahrain, BH 
+Hanoi, Vietnam, VN 
+Honolulu, USA, US 
+Manila, Philippines, PH 
+Medellin, Colombia, CO   
+Auckland, New Zealand, NZ 
+Siem Reap, Cambodia, KH    
+Sousse, Tunisia, TN 
+Amman, Jordan, JO  
+Vancouver, Canada, CA  
+Abu Dhabi, UAE, AE 
+Kiev, Ukraine, UA 
+Doha, Qatar, QA   
+Florence, Italy, IT   
+Rio de Janeiro, Brazil, BR  
+Melbourne, Australia, AU   
+Washington DC, USA, US 
+Riyadh, Saudi Arabia, SA    
+Christchurch, New Zealand, NZ 
+Frankfurt, Germany, DE 
+Dresden, Germany, DE  
+Sao Paulo, Brazil, BR  
+Seattle, USA, US    
+Kolkata, India, IN   
+Nanjing, China, CN
