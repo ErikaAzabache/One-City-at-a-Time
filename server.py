@@ -35,7 +35,7 @@ def search_results():
         return redirect("/")
     else:
         city_id = db.session.query(City).filter(City.name==city_search).first().city_id
-        places = db.session.query(Place).filter(Place.city_id==city_id).all()
+        places = db.session.query(Place).filter(Place.city_id==city_id).all() #list of objects
         if not places:
             flash("We couldn't find %s. Please choose another city." % (city_search))
             return redirect("/")
@@ -45,6 +45,37 @@ def search_results():
 
             # return jsonify(places_info)
             # return render_template("search_results.html")
+
+
+@app.route('/add-action', methods=['POST'])
+def add_actions():
+    """Add actions to the database and return an OK to indicate that the button should change."""
+
+    # formInputs = {"action_type": value,
+    #               "place_id": value}
+
+    action_type = request.form.get('action_type')
+    place_id = request.form.get('place_id')
+    user_id = session.get("user_id")
+
+    if not user_id:
+        flash("Please login.") #WHERE AM I flashing exactly?
+        return "Hey girl...login for me please" #have to return something or ajax will fail
+
+    #one or none
+    action_in_db = db.session.query(Action).filter(Action.user_id==user_id, Action.place_id==place_id, Action.action_code==action_type).first()
+    if action_in_db:
+        db.session.query(Action).filter(Action.action_id==action_in_db.action_id).delete()
+        db.session.commit()
+        return "Hey girl...you already did that so undoing it." #have to return something or ajax will fail
+    
+    #Else, add new_action:
+    new_action = Action(user_id=user_id, place_id=place_id, action_code=action_type)
+    db.session.add(new_action)
+    db.session.commit()
+
+    #this will tell JS to change the color of the button
+    return "It's all good. Love, your server"
 
 
 @app.route('/register', methods=['GET'])

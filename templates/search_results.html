@@ -9,7 +9,7 @@
 </form>
     <div>
         <h6>Filters:</h6>
-            <form action="POST">
+            <form id="tags-form">
                 <input  type="checkbox" name="tags" value="Parks">Parks
                 <input  type="checkbox" name="tags" value="Landmarks">Landmarks
                 <input  type="checkbox" name="tags" value="Museums">Museums
@@ -24,12 +24,48 @@
                 <ul id="place-results">
                     <div>
                         <li>
-                            <a href="/places/{{ place.place_id }}">{{ place.name }}</a>
-                            <!-- <b type="text" name="place" value=text></b> -->
+                            <a href="/places/{{ place.place_id }}">{{ place.name }}</a>                             
+                              <form id="add-action-form">
+                                <input type="button" id="sav-{{ place.place_id }}" class="sav" value="Bookmark">
+                                <input type="button" id="hbh-{{ place.place_id }}" class="hbh" value="I've been here">
+                              </form>
                         </li>
                     </div>
                 </ul>
             {% endfor %}
         </div>
     </div>
+
+<!-- FOR ALL BUTTONS -->
+<script>
+
+function showConfirmation(result) {
+    console.log(result);
+}
+
+function updateActionTable(evt){
+    evt.preventDefault();
+    console.log(this.classList[0]+" button has been clicked.");
+
+    var formInputs = {
+        "action_type": this.classList[0],
+        "place_id": this.id.slice(4)
+    };
+
+    console.log("type: "+this.classList[0]);
+    console.log("placeid: "+this.id.slice(4));
+
+    $.post("/add-action", 
+           formInputs,
+           showConfirmation
+           );
+}
+
+$(".sav").on("click", updateActionTable)
+$(".hbh").on("click", updateActionTable)
+
+</script>
+
+
 {% endblock %}
+
