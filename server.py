@@ -24,7 +24,7 @@ def index():
     return render_template("homepage.html")
 
 
-@app.route('/search.json', methods=['POST'])
+@app.route('/search', methods=['POST'])
 def search_results():
     """Search results."""
     city_search = request.form.get("city_search").title()
@@ -47,6 +47,27 @@ def search_results():
             # return render_template("search_results.html")
 
 
+
+
+
+@app.route('/search.json', methods=['POST'])
+def search_results_json():
+    city_search = request.form.get("city_search").title()
+    city_in_db = db.session.query(City).filter(City.name==city_search).first()
+
+    if city_in_db:
+        city_id = db.session.query(City).filter(City.name==city_search).first().city_id
+        places = db.session.query(Place).filter(Place.city_id==city_id).all() #list of objects
+        
+        if places:
+            return jsonify([{'name': place.name, 'place_id': place.place_id, 'city_id': place.city_id, 'rating': place.rating, 'tags': 'placeholder'} for place in places])
+    return jsonify({})
+
+    # return jsonify(places_info)
+    # return render_template("search_results.html")
+
+
+
 @app.route('/add-action', methods=['POST'])
 def add_actions():
     """Add actions to the database and return an OK to indicate that the button should change."""
@@ -60,22 +81,23 @@ def add_actions():
 
     if not user_id:
         flash("Please login.") #WHERE AM I flashing exactly?
-        return "Hey girl...login for me please" #have to return something or ajax will fail
-
+        #return "Hey girl...login for me please" #have to return something or ajax will fail
+        return jsonify({"result_code": "login"})
     #one or none
     action_in_db = db.session.query(Action).filter(Action.user_id==user_id, Action.place_id==place_id, Action.action_code==action_type).first()
     if action_in_db:
         db.session.query(Action).filter(Action.action_id==action_in_db.action_id).delete()
         db.session.commit()
-        return "Hey girl...you already did that so undoing it." #have to return something or ajax will fail
-    
+        #return "Hey girl...you already did that so undoing it." #have to return something or ajax will fail
+        return jsonify({"result_code": "undo"})
     #Else, add new_action:
     new_action = Action(user_id=user_id, place_id=place_id, action_code=action_type)
     db.session.add(new_action)
     db.session.commit()
 
     #this will tell JS to change the color of the button
-    return "It's all good. Love, your server"
+    #return "It's all good. Love, your server"
+    return jsonify({"result_code": "added"})
 
 
 @app.route('/register', methods=['GET'])

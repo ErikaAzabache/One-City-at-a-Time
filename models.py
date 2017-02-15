@@ -156,6 +156,10 @@ class PlaceTag(db.Model):
     place_id = db.Column(db.Integer, db.ForeignKey('places.place_id'), nullable=False)
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.tag_id'), nullable=False)
 
+    #relationship
+    #tags = db.relationship("Tag", backref="placetags")
+    #place = 
+
     def __repr__(self):
         """Provide helpful representation when printed."""
 

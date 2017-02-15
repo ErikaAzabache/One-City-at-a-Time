@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="/search.json" method="POST">
+<form id="alt-search">
     <div>
         <h5>Where are you going next?:</h5>
             <input id= "city-search-alt" type="text" name="city_search" required>
@@ -8,39 +8,56 @@
     </div>
 </form>
     <div>
-        <h6>Filters:</h6>
-            <form id="tags-form">
-                <input  type="checkbox" name="tags" value="Parks">Parks
-                <input  type="checkbox" name="tags" value="Landmarks">Landmarks
-                <input  type="checkbox" name="tags" value="Museums">Museums
-                <input  type="checkbox" name="tags" value="Shops">Shops
+        <h6>Sort By:</h6>
+            <form id="sort-form">
+                <input type="button" id="sort-default" class="sort-btn" value="Default">
+                <input type="button" id="sort-least-pop" class="sort-btn" value="Hidden Treasures">
+                <input type="button" id="sort-name" class="sort-btn" value="Name">
             </form>
     </div>
 
     <div>
         <h2>Results:</h2>
-        <div>
-            {% for place in places %}
-                <ul id="place-results">
+        <div id="results-list">
+            <ul id="place-results">
+                {% for place in places %}
                     <div>
                         <li>
-                            <a href="/places/{{ place.place_id }}">{{ place.name }}</a>                             
-                              <form id="add-action-form">
+                            <a href="/places/{{ place.place_id }}">{{ place.name }}</a>
+                            <div> Tag:
+                                {% for tag in place.tags %}
+                                    {{ tag.tag_name }}.
+                                {% endfor %}
+                            </div>
+                            <div>Rating: {{place.rating}}</div>                        
+                            <form id="add-action-form">
                                 <input type="button" id="sav-{{ place.place_id }}" class="sav" value="Bookmark">
                                 <input type="button" id="hbh-{{ place.place_id }}" class="hbh" value="I've been here">
-                              </form>
+                            </form>
                         </li>
                     </div>
-                </ul>
-            {% endfor %}
+                {% endfor %}
+            </ul>
         </div>
     </div>
+
+    <div id="results-map"></div>
 
 <!-- FOR ALL BUTTONS -->
 <script>
 
 function showConfirmation(result) {
     console.log(result);
+    if (result.result_code == "login"){
+        console.log(this.id);
+        window.location.href = "/login";
+    } else if (result.result_code == "added"){
+        $(this.id).addClass("selected");
+        console.log(this.id);
+    } else{
+        $(this.id).removeClass("selected");
+        console.log(this.id);
+    }
 }
 
 function updateActionTable(evt){
@@ -64,6 +81,37 @@ function updateActionTable(evt){
 $(".sav").on("click", updateActionTable)
 $(".hbh").on("click", updateActionTable)
 
+</script>
+
+<script>
+
+function showResults(res_list){
+    $("#place-results").remove();
+    $('#results-list').append("<ul id='place-results'> <div id='data_goes_here'> <div> </ul>");
+    var i;
+    var j;
+    for (i = 0; i < res_list.length; i++) {
+        $('#data_goes_here').append("<li> <a href='/places/"+ res_list[i].place_id + "'>" + res_list[i].name + "</a> <div id='tag-div-"+ res_list[i].place_id +"'> Tag: </div> <div>Rating: " + res_list[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + res_list[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + res_list[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
+        console.log(res_list[i].tags)
+        $('#tag-div-'+res_list[i].place_id).append(res_list[i].tags);
+    }
+}
+
+function submitSearch(evt){
+    evt.preventDefault();
+    console.log("after prevent");
+
+    var formInputs = {
+        "city_search": $("#city-search-alt").val()
+    };
+
+    $.post('/search.json',
+            formInputs,
+            showResults);
+}
+
+$("#search-button-alt").on('click', submitSearch);
+    
 </script>
 
 
