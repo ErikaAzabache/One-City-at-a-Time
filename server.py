@@ -40,32 +40,52 @@ def search_results():
             flash("We couldn't find %s. Please choose another city." % (city_search))
             return redirect("/")
         else:
-            return render_template("search_results.html", places=places)
+            return render_template("search_results.html", places=places, city=city_search)
             # places_info = [{'name':place.name, 'city_id':place.city_id} for place in places]
 
             # return jsonify(places_info)
             # return render_template("search_results.html")
 
 
-
-
-
 @app.route('/search.json', methods=['POST'])
 def search_results_json():
     city_search = request.form.get("city_search").title()
+    city_search = city_search.lstrip().rstrip()
+
+    sort_type = request.form.get("sort_type")
+
     city_in_db = db.session.query(City).filter(City.name==city_search).first()
 
-    if city_in_db:
+    if not city_in_db:
+        return jsonify({}) #choose another city please
+    else: #if in city database
         city_id = db.session.query(City).filter(City.name==city_search).first().city_id
-        places = db.session.query(Place).filter(Place.city_id==city_id).all() #list of objects
-        
-        if places:
+
+        places = db.session.query(Place).filter(Place.city_id==city_id).all() #DEFAULT
+       
+        if sort_type == "sort-name":
+            places = sorted(places, key=lambda place: place.name)
+        elif sort_type == "sort-least-pop":
+            places = sorted(places, key=lambda place: place.rating)
+        else:
+            places = sorted(places, key=lambda place: place.rating, reverse=True)
+       
+        if not places:
+            return jsonify({}) #choose another city
+        else:
             return jsonify([{'name': place.name, 'place_id': place.place_id, 'city_id': place.city_id, 'rating': place.rating, 'tags': 'placeholder'} for place in places])
-    return jsonify({})
 
-    # return jsonify(places_info)
-    # return render_template("search_results.html")
 
+@app.route('/fake.json', methods=['POST'])
+def fake_json():
+    sort_type = request.form.get("sort_type")
+    city_search = request.form.get("city_search").title()
+
+    print sort_type
+    print city_search
+
+    return "Hi there! I'm server"
+    #return jsonify({'name': 'placeholder', 'place_id': 1, 'city_id': 1, 'rating': 1, 'tags': 'placeholder'})
 
 
 @app.route('/add-action', methods=['POST'])
@@ -202,6 +222,21 @@ def place_details(place_id):
 
     place = db.session.query(Place).get(place_id)
     return render_template("place.html", place=place)
+
+
+# @app.route('/places-location.json')
+# def places_info():
+#     """Places JSON information."""
+
+#     places = {
+#         place.place_id: {
+#             "Name": ,
+#             "Rating": ,
+#             "Category": ,
+#         }
+#         for place in Place.query.limit(20)}
+
+#     return jsonify(places)
 
 
 
