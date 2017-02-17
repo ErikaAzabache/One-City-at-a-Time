@@ -3,7 +3,8 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
 
-from models import connect_to_db, db, Country, City, User, Place, Actiontype, Action, Tag, PlaceTag
+from models import connect_to_db, db
+from models import Country, City, User, Place, Actiontype, Action, Tag, PlaceTag
 from seed_test import search_country_code, country_code_dict
 import json
 
@@ -50,7 +51,8 @@ def search_results():
 
 @app.route('/search.json', methods=['GET'])
 def search_results_json():
-    """Sends places information for a given city and sort-by option using a secondary search form in the results template"""
+    """Sends places information for a given city and sort-by 
+    option using a secondary search form in the results template"""
 
     city_search = request.args.get("city_search").title()
     city_search = city_search.lstrip().rstrip()
@@ -76,7 +78,16 @@ def search_results_json():
         if not places:
             return jsonify({}) #choose another city
         else:
-            return jsonify([{'name': place.name, 'place_id': place.place_id, 'rating': place.rating, 'tags': 'placeholder', 'latitud': place.latitud, 'longitud': place.longitud, 'city_id': place.city_id, 'city_lat': place.city.latitud, 'city_long': place.city.longitud} for place in places])
+            return jsonify([{'name': place.name,
+                            'address': place.address, 
+                            'place_id': place.place_id, 
+                            'rating': place.rating, 
+                            'tags': [tag.tag_name for tag in place.tags], 
+                            'latitud': place.latitud, 
+                            'longitud': place.longitud, 
+                            'city_id': place.city_id, 
+                            'city_lat': place.city.latitud, 
+                            'city_long': place.city.longitud} for place in places])
 
 
 @app.route('/add-action', methods=['POST'])
@@ -211,16 +222,6 @@ def place_details(place_id):
     place = db.session.query(Place).get(place_id)
 
     return render_template("place.html", place=place)
-
-
-@app.route('/places-location.json')
-def places_info():
-    """Places JSON information."""
-
-
-    places = {place.place_id: {"name": place.name, "rating": place.rating, "latitud": place.latitud, "longitud": place.longitud} for place in db.session.query(Place).all()}
-
-    return jsonify(places)
 
 
 

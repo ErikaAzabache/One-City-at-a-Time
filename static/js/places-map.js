@@ -65,7 +65,7 @@ function initMap(latitud, longitud) {
       html = (
           '<div class="window-content">' +
               '<p><b>Place: </b>' + place.name + '</p>' +
-              '<p><b>Location: </b>' + marker.position + '</p>' +
+              '<p><b>Address: </b>' + place.address + '</p>' +
           '</div>');
 
       // Inside the loop we call bindInfoWindow passing it the marker,

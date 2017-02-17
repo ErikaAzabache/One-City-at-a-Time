@@ -82,6 +82,7 @@ class Place(db.Model):
     rating = db.Column(db.Float) #for sorting purposes only
     latitud = db.Column(db.String(100))
     longitud = db.Column(db.String(100))
+    address = db.Column(db.String(200))
     description = db.Column(db.UnicodeText)
     picture = db.Column(db.String(200))
     url_4s = db.Column(db.String(200))

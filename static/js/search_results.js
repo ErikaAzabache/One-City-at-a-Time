@@ -44,8 +44,8 @@ function showResults(reslist){
     var j;
     for (i = 0; i < reslist.length; i++) {
         $('#data_goes_here').append("<li> <a href='/places/"+ reslist[i].place_id + "'>" + reslist[i].name + "</a> <div id='tag-div-" + reslist[i].place_id + "'> Tag: </div> <div>Rating: " + reslist[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + reslist[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + reslist[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
-        console.log(reslist[i].tags)
-        $('#tag-div-'+reslist[i].place_id).append(reslist[i].tags);
+        console.log(reslist[i].tags[0])
+        $('#tag-div-'+reslist[i].place_id).append(reslist[i].tags[0]);
     }
 
     
