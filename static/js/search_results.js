@@ -32,25 +32,20 @@ function updateActionTable(evt){
 }
 $(document).on('click', '.sav', updateActionTable);
 $(document).on('click', '.hbh', updateActionTable);
-// $(".sav").on("click", updateActionTable);
-//$(".hbh").on("click", updateActionTable);
-
 
 
 // -------------SECONDARY SEARCH UPDATES SEARCH RESULTS
 
-function showResults(res_list){
-    
-    // $("#hidden-span").html($("#city-search-alt").val());
+function showResults(reslist){
     $("#place-results").remove();
     console.log("after removing the old results");
     $('#results-list').append("<ul id='place-results'> <div id='data_goes_here'> </div> </ul>");
     var i;
     var j;
-    for (i = 0; i < res_list.length; i++) {
-        $('#data_goes_here').append("<li> <a href='/places/"+ res_list[i].place_id + "'>" + res_list[i].name + "</a> <div id='tag-div-" + res_list[i].place_id + "'> Tag: </div> <div>Rating: " + res_list[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + res_list[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + res_list[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
-        console.log(res_list[i].tags)
-        $('#tag-div-'+res_list[i].place_id).append(res_list[i].tags);
+    for (i = 0; i < reslist.length; i++) {
+        $('#data_goes_here').append("<li> <a href='/places/"+ reslist[i].place_id + "'>" + reslist[i].name + "</a> <div id='tag-div-" + reslist[i].place_id + "'> Tag: </div> <div>Rating: " + reslist[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + reslist[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + reslist[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
+        console.log(reslist[i].tags)
+        $('#tag-div-'+reslist[i].place_id).append(reslist[i].tags);
     }
 
     
@@ -64,10 +59,10 @@ function submitSearch(evt){
         "sort_type": "sort-default",
         "city_search": $("#city-search-alt").val()
     };
-    
+
     $("#hidden-span").html($("#city-search-alt").val());
 
-    $.post('/search.json',
+    $.get('/search.json',
             formInputs,
             showResults);
 }
@@ -79,7 +74,6 @@ $("#search-button-alt").on('click', submitSearch);
 // function showSomething(result){
 //     console.log(result);
 // }
-
 
 function submitSortby(evt){
     evt.preventDefault();
@@ -93,7 +87,7 @@ function submitSortby(evt){
     console.log("type: "+ this.id);
     console.log("city: "+ $("#hidden-span").html());
 
-    $.post("/search.json", 
+    $.get("/search.json", 
            formInputs,
            showResults
            );
@@ -102,5 +96,3 @@ function submitSortby(evt){
 $("#sort-default").on('click', submitSortby);
 $("#sort-least-pop").on('click', submitSortby);
 $("#sort-name").on('click', submitSortby);
-
-

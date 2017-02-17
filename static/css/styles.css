@@ -14,9 +14,14 @@
   margin-left: 5px;}
 
 #results-map{
-  float:right;
-  height: 100%;
+  float: right;
+  height: 500px;
+  width: 500px;
   margin: 0px;
+}
+
+.window-content {
+  color: #04162b;;
 }
 
 

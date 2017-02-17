@@ -26,7 +26,8 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search_results():
-    """Search results."""
+    """Renders the results for a given city."""
+
     city_search = request.form.get("city_search").title()
     city_in_db = db.session.query(City).filter(City.name==city_search).first()
 
@@ -47,12 +48,14 @@ def search_results():
             # return render_template("search_results.html")
 
 
-@app.route('/search.json', methods=['POST'])
+@app.route('/search.json', methods=['GET'])
 def search_results_json():
-    city_search = request.form.get("city_search").title()
+    """Sends places information for a given city and sort-by option using a secondary search form in the results template"""
+
+    city_search = request.args.get("city_search").title()
     city_search = city_search.lstrip().rstrip()
 
-    sort_type = request.form.get("sort_type")
+    sort_type = request.args.get("sort_type")
 
     city_in_db = db.session.query(City).filter(City.name==city_search).first()
 
@@ -64,36 +67,21 @@ def search_results_json():
         places = db.session.query(Place).filter(Place.city_id==city_id).all() #DEFAULT
        
         if sort_type == "sort-name":
-            places = sorted(places, key=lambda place: place.name)
+            places = sorted(places, key = lambda place: place.name)
         elif sort_type == "sort-least-pop":
-            places = sorted(places, key=lambda place: place.rating)
+            places = sorted(places, key = lambda place: place.rating)
         else:
-            places = sorted(places, key=lambda place: place.rating, reverse=True)
+            places = sorted(places, key = lambda place: place.rating, reverse=True)
        
         if not places:
             return jsonify({}) #choose another city
         else:
-            return jsonify([{'name': place.name, 'place_id': place.place_id, 'city_id': place.city_id, 'rating': place.rating, 'tags': 'placeholder'} for place in places])
-
-
-@app.route('/fake.json', methods=['POST'])
-def fake_json():
-    sort_type = request.form.get("sort_type")
-    city_search = request.form.get("city_search").title()
-
-    print sort_type
-    print city_search
-
-    return "Hi there! I'm server"
-    #return jsonify({'name': 'placeholder', 'place_id': 1, 'city_id': 1, 'rating': 1, 'tags': 'placeholder'})
+            return jsonify([{'name': place.name, 'place_id': place.place_id, 'rating': place.rating, 'tags': 'placeholder', 'latitud': place.latitud, 'longitud': place.longitud, 'city_id': place.city_id, 'city_lat': place.city.latitud, 'city_long': place.city.longitud} for place in places])
 
 
 @app.route('/add-action', methods=['POST'])
 def add_actions():
-    """Add actions to the database and return an OK to indicate that the button should change."""
-
-    # formInputs = {"action_type": value,
-    #               "place_id": value}
+    """Adds actions to the database and returns an OK to indicate that the button should change."""
 
     action_type = request.form.get('action_type')
     place_id = request.form.get('place_id')
@@ -123,6 +111,7 @@ def add_actions():
 @app.route('/register', methods=['GET'])
 def register_form():
     """Show form for user signup."""
+
     country_list = sorted(country_code_dict.keys())
 
     return render_template("registration.html", countries=country_list)
@@ -177,7 +166,6 @@ def login_form():
 def login_process():
     """Process login."""
 
-    # From login form
     email = request.form["email"]
     password = request.form["password"]
 
@@ -221,22 +209,18 @@ def place_details(place_id):
     """Show more details about selected place."""
 
     place = db.session.query(Place).get(place_id)
+
     return render_template("place.html", place=place)
 
 
-# @app.route('/places-location.json')
-# def places_info():
-#     """Places JSON information."""
+@app.route('/places-location.json')
+def places_info():
+    """Places JSON information."""
 
-#     places = {
-#         place.place_id: {
-#             "Name": ,
-#             "Rating": ,
-#             "Category": ,
-#         }
-#         for place in Place.query.limit(20)}
 
-#     return jsonify(places)
+    places = {place.place_id: {"name": place.name, "rating": place.rating, "latitud": place.latitud, "longitud": place.longitud} for place in db.session.query(Place).all()}
+
+    return jsonify(places)
 
 
 
