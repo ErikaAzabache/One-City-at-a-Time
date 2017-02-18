@@ -62,7 +62,7 @@ def search_results_json():
     city_in_db = db.session.query(City).filter(City.name==city_search).first()
 
     if not city_in_db:
-        return jsonify({}) #choose another city please
+        return jsonify(None) #choose another city please
     else: #if in city database
         city_id = db.session.query(City).filter(City.name==city_search).first().city_id
 
@@ -76,7 +76,7 @@ def search_results_json():
             places = sorted(places, key = lambda place: place.rating, reverse=True)
        
         if not places:
-            return jsonify({}) #choose another city
+            return jsonify(None) #choose another city
         else:
             return jsonify([{'name': place.name,
                             'address': place.address, 

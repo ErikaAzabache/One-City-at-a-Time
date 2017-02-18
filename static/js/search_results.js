@@ -36,24 +36,26 @@ $(document).on('click', '.hbh', updateActionTable);
 
 // -------------SECONDARY SEARCH UPDATES SEARCH RESULTS
 
-function showResults(reslist){
+function showResults(resList){
     $("#place-results").remove();
     console.log("after removing the old results");
-    $('#results-list').append("<ul id='place-results'> <div id='data_goes_here'> </div> </ul>");
-    var i;
-    var j;
-    for (i = 0; i < reslist.length; i++) {
-        $('#data_goes_here').append("<li> <a href='/places/"+ reslist[i].place_id + "'>" + reslist[i].name + "</a> <div id='tag-div-" + reslist[i].place_id + "'> Tag: </div> <div>Rating: " + reslist[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + reslist[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + reslist[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
-        console.log(reslist[i].tags[0])
-        $('#tag-div-'+reslist[i].place_id).append(reslist[i].tags[0]);
+    if (!resList){
+        console.log("NO RESULTS FOUND");
+        $('#results-list').append("<ul id='place-results'> <div id='data_goes_here'> No results found </div> </ul>");
+    } else {
+        $('#results-list').append("<ul id='place-results'> <div id='data_goes_here'> </div> </ul>");
+        var i;
+        var j;
+        for (i = 0; i < resList.length; i++) {
+            $('#data_goes_here').append("<li> <a href='/places/"+ resList[i].place_id + "'>" + resList[i].name + "</a> <div id='tag-div-" + resList[i].place_id + "'> Tag: </div> <div>Rating: " + resList[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + resList[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + resList[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
+            $('#tag-div-'+resList[i].place_id).append(resList[i].tags[0]);
+        }
     }
-
     
 }
 
 function submitSearch(evt){
     evt.preventDefault();
-    console.log("after prevent");
 
     var formInputs = {
         "sort_type": "sort-default",
@@ -77,7 +79,6 @@ $("#search-button-alt").on('click', submitSearch);
 
 function submitSortby(evt){
     evt.preventDefault();
-    console.log("button has been clicked.");
 
     var formInputs = {
         "sort_type": this.id,

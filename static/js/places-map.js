@@ -42,50 +42,49 @@ function initMap(latitud, longitud) {
 }
   
   function showMap(resList) { 
-    var cityLat = parseFloat(resList[0].city_lat);
-    var cityLong = parseFloat(resList[0].city_long);
-    initMap(cityLat, cityLong) 
+    if (!resList){
+      console.log(!(resList));
+      $('#results-map').html("No map to show");
+    } else {
+        var cityLat = parseFloat(resList[0].city_lat);
+        var cityLong = parseFloat(resList[0].city_long);
+        initMap(cityLat, cityLong) 
 
-    var i, place, marker, html;
-    var infoWindow = new google.maps.InfoWindow({
-    width: 150
-    });
+        var i, place, marker, html;
+        var infoWindow = new google.maps.InfoWindow({
+        width: 150
+        });
 
-    for (i=0; i < resList.length; i++) {    
-      place = resList[i];
-      // Define the marker
-      marker = new google.maps.Marker({
-          position: new google.maps.LatLng(parseFloat(place.latitud), parseFloat(place.longitud)),
-          map: map,
-          title: 'Name: ' + place.name,
-          icon: ''
-      });
+        for (i=0; i < resList.length; i++) {    
+          place = resList[i];
+          // Define the marker
+          marker = new google.maps.Marker({
+              position: new google.maps.LatLng(parseFloat(place.latitud), parseFloat(place.longitud)),
+              map: map,
+              title: 'Name: ' + place.name,
+              icon: ''
+          });
 
-      // Define the content of the infoWindow
-      html = (
-          '<div class="window-content">' +
-              '<p><b>Place: </b>' + place.name + '</p>' +
-              '<p><b>Address: </b>' + place.address + '</p>' +
-          '</div>');
+          // Define the content of the infoWindow
+          html = (
+              '<div class="window-content">' +
+                  '<p><b>Place: </b>' + place.name + '</p>' +
+                  '<p><b>Address: </b>' + place.address + '</p>' +
+              '</div>');
 
-      // Inside the loop we call bindInfoWindow passing it the marker,
-      // map, infoWindow and contentString
-      bindInfoWindow(marker, map, infoWindow, html);
-  }
+          // Inside the loop we call bindInfoWindow passing it the marker,
+          // map, infoWindow and contentString
+          bindInfoWindow(marker, map, infoWindow, html);
+        }
 
-
-  // feedMap();
-  // This function is outside the for loop.
-  // When a marker is clicked it closes any currently open infowindows
-  // Sets the content for the new marker with the content passed through
-  // then it open the infoWindow with the new content on the marker that's clicked
-  function bindInfoWindow(marker, map, infoWindow, html) {
-      google.maps.event.addListener(marker, 'click', function () {
-          infoWindow.close();
-          infoWindow.setContent(html);
-          infoWindow.open(map, marker);
-      });
-  }
+        function bindInfoWindow(marker, map, infoWindow, html) {
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.close();
+                infoWindow.setContent(html);
+                infoWindow.open(map, marker);
+            });
+        }
+    }
 }
 
 // google.maps.event.addDomListener(window, 'load', initMap);
