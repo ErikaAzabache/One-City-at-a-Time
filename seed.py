@@ -18,6 +18,7 @@ def search_country_code(country_name):
     return country_code_dict[country_name]
 
 def city_country_list():
+
     with open('seed_data/CityCountry.txt') as cities_file:
         city_country = [] #list of tuples(city, country)
 
@@ -34,7 +35,8 @@ def load_countries():
     db.session.commit()
 
 def load_cities():
-    
+    """Loads cities from CityCountry.txt"""
+
     city_country = city_country_list()
 
     for a_city, a_country in city_country:
@@ -48,22 +50,7 @@ def load_cities():
     db.session.commit()
 
 def load_places():
-
-    #FOR PLACE IN PLACES
-        #GET NAME, CITY_ID RATING, TAG_LIST
-        #DB.SESSION.ADD PLACE (TAGS ARENT PART OF THE PLACE OBJECT)
-        #DB.SESSION.COMMIT PLACE (OTHERWISE, CANT QUERY AND ADD TO TAGS TABLE)
-        #place_id = DB.SESSION.QUERY(PLACE).FILTER(NAME==NAME).FIRST().PLACE_ID
-        #FOR ONE_TAG IN TAG_LIST
-            #ONE_TAG = DB.SESSION.QUERY(TAG).FILTER(NAME==TAG).FIRST()
-            #IF NOT ONE_TAG
-                #NEW_TAG=TAG(NAME=ONE_TAG)
-                #DB.SESSION.ADD TAG
-                #DB.SESSION.COMMIT TAG (OTHERWISE CANT QUERY AND ADD TO PLACETAGS TABLE)
-            #DB.SESSION.QUERY(TAG).FILTER(TAG_NAME=TAG).FIRST().TAG_ID
-            #PLACETAG(PLACE_ID=, TAG_ID=)
-            #DB.SESSION.ADD PLACETAG
-            #DB.SESSION.COMMIT PLACETAG
+    """Loads places, tags and placetags tables using data from foursquare API"""
 
     city_country = city_country_list()
     all_results = [] #to save all searches in case I get blocked from 4S
@@ -77,13 +64,20 @@ def load_places():
         
         all_results.append(results)
 
-        ########places = [(item_dict[u'venue'][u'rating'], item_dict[u'venue'][u'name']) for item_dict in results[u'groups'][0][u'items']]
-        places = [(item_dict['venue']['rating'], item_dict['venue']['name'], item_dict['venue']['categories'], item_dict['venue']['location']['lat'], item_dict['venue']['location']['lng'], item_dict['tips'][0]['canonicalUrl']) for item_dict in results['groups'][0]['items']]
+        places = []
+        for item_dict in results['groups'][0]['items']:
+            rating = item_dict['venue']['rating']
+            name = item_dict['venue']['name'][:100]
+            categories = item_dict['venue']['categories']
+            place_lat = item_dict['venue']['location']['lat']
+            place_lng = item_dict['venue']['location']['lng']
+            address = item_dict['venue']['location']['formattedAddress'][0]
+            if item_dict.get('tips'):
+                url_4s = item_dict['tips'][0]['canonicalUrl']
+            else:
+                url_4s = None
 
-        for rating, name, categories, place_lat, place_lng, url_4s in places:
-            name = name[:100]
-
-            place = Place(name=name, city_id=city_id, rating=rating, latitud=place_lat, longitud=place_lng, url_4s=url_4s)
+            place = Place(name=name, city_id=city_id, rating=rating, latitud=place_lat, longitud=place_lng, address=address, url_4s=url_4s)
             db.session.add(place)
             db.session.commit()
 
@@ -101,7 +95,7 @@ def load_places():
                 db.session.add(a_placetag)
                 db.session.commit()
 
-    with open('seed_data/places_dump', 'w') as f:
+    with open('seed_data/foursquare_dump', 'w') as f:
         pickle.dump(all_results, f)
 
 
@@ -141,13 +135,15 @@ def load_actions():
 
     action_code_list = ['sav','hbh']
 
-    for i in range(20): #generating an arbitrary number of actions
-        user_id = randint(1, 10) #load_users() will generate 1000 registered users
-        place_id = randint(1, 150) #load_places() will generate 3030 searchable places 
+    for i in range(250): #generating an arbitrary number of actions (250 at most)
+        user_id = randint(1, 1000) #load_users() will generate 1000 registered users
+        place_id = randint(1, 3030) #load_places() will generate 3030 searchable places 
         action_code = choice(action_code_list)
-
-        action = Action(user_id=user_id, place_id=place_id, action_code=action_code)
-        db.session.add(action)
+        #checking if action has already been added to actions table
+        action_in_db = db.session.query(Action).filter(Action.user_id==user_id, Action.place_id==place_id, Action.action_code==action_code).first()
+        if not action_in_db:
+            action = Action(user_id=user_id, place_id=place_id, action_code=action_code)
+            db.session.add(action)
     db.session.commit()
 
 
@@ -167,4 +163,3 @@ if __name__ == "__main__":
     load_users()
     load_actiontypes()
     load_actions()
-

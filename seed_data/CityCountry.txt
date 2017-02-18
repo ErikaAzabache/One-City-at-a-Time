@@ -5,7 +5,6 @@ London, United Kingdom
 Cartagena, Colombia
 Kuala Lumpur, Malaysia    
 La Habana, Cuba   
-New York City, United States 
 Antalya, Turkey  
 Paris, France  
 Istanbul, Turkey  
@@ -39,17 +38,13 @@ Warsaw, Poland
 Chennai, India   
 Cairo, Egypt   
 Nairobi, Kenya   
-Hangzhou, China   
 Milan, Italy   
 San Francisco, United States 
 Buenos Aires, Argentina   
-Venice, Italy   
-Mexico City, Mexico
-Athens, Greece
+Venice, Italy
 Copenhagen, Denmark
 Mugla, Turkey
 Mumbai, India
-Denpasar, Indonesia   
 Delhi, India   
 Toronto, Canada  
 Caracas, Venezuela   
@@ -58,12 +53,10 @@ Burgas, Bulgaria
 Sydney, Australia   
 Djerba, Tunisia 
 Munich, Germany 
-Johannesburg, South Africa    
-Cancun, Mexico  
+Johannesburg, South Africa  
 Edirne, Turkey  
 Bogota, Colombia   
-Bucharest, Romania 
-Punta Cana, Dominican Republic
+Bucharest, Romania
 Granada, Spain 
 Jaipur, India   
 Brussels, Belgium 
@@ -99,3 +92,10 @@ Sao Paulo, Brazil
 Seattle, United States    
 Kolkata, India   
 Nanjing, China
+New York City, United States
+Hangzhou, China
+Mexico City, Mexico
+Athens, Greece
+Denpasar, Indonesia
+Cancun, Mexico 
+Punta Cana, Dominican Republic
