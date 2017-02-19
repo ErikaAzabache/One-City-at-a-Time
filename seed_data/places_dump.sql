@@ -685,7 +685,6 @@ COPY cities (city_id, name, country_code, latitud, longitud, description, pictur
 81	Kiev	UA	50.45466	30.5238	\N	\N
 82	Doha	QA	25.27932	51.52245	\N	\N
 83	Florence	IT	43.77925	11.24626	\N	\N
-84	Rio de Janeiro	BR	-22.90278	-43.2075	\N	\N
 85	Melbourne	AU	-37.814	144.96332	\N	\N
 86	Washington DC	US	38.89511	-77.03637	\N	\N
 87	Riyadh	SA	24.68773	46.72185	\N	\N
@@ -1676,6 +1675,7 @@ COPY cities (city_id, name, country_code, latitud, longitud, description, pictur
 1072	Huasahuasi	PE	\N	\N	\N	\N
 1073	Malakwāl	PK	\N	\N	\N	\N
 1074	Buôn Ma Thuột	VN	\N	\N	\N	\N
+84	Rio De Janeiro	BR	-22.90278	-43.2075	\N	\N
 \.
 
 

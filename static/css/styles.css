@@ -19,6 +19,9 @@
   width: 500px;
   margin: 0px;
 }
+#results-list{
+  float: left;
+}
 
 .window-content {
   color: #04162b;;

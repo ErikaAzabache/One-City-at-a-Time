@@ -18,7 +18,7 @@
 
     <div>
         <h2>Results: <span id="hidden-span" hidden> {{ city }} </span></h2>
-        <div id="results-list">
+        <span><div id="results-list">
             <ul id="place-results">
                 {% for place in places %}
                     <div>
@@ -41,7 +41,7 @@
         </div>
     </div>
 
-    <div id="results-map"></div>
+    <div id="results-map"></div></span>
 
 <script src="/static/js/search_results.js" type="text/javascript"></script>
 <script src="/static/js/places-map.js"></script>
