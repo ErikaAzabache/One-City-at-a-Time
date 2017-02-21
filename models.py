@@ -60,7 +60,7 @@ class User(db.Model):
     lastname = db.Column(db.String(100), nullable=False)
     city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'))
     email = db.Column(db.String(64), nullable=False)
-    password = db.Column(db.String(20), nullable=False)
+    password = db.Column(db.Text, nullable=False)
     is_activated = db.Column(db.Boolean, default=False)
     picture = db.Column(db.String(200)) #url IF I can add profile pics in 2nd sprint
 

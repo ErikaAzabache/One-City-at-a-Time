@@ -3,9 +3,10 @@ import sys
 import foursquare
 import pprint 
 import pickle
+import csv
 from models import connect_to_db, db, Country, City, Place, User, Tag, PlaceTag, Action, Actiontype, Activation
 from random import randint, choice
-import csv
+from passlib.hash import argon2
 
 client = foursquare.Foursquare(client_id = os.environ['CLIENT_ID'] , client_secret = os.environ['CLIENT_SECRET'])
 
@@ -117,7 +118,8 @@ def load_users():
 
         city_id = db.session.query(City).filter(City.name==city).first().city_id
         is_activated = choice(is_activated_list)
-
+        password = argon2.hash(password)
+        
         user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, is_activated=is_activated)
         db.session.add(user)
     db.session.commit()

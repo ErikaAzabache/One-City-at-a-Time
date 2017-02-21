@@ -285,7 +285,7 @@ CREATE TABLE users (
     lastname character varying(100) NOT NULL,
     city_id integer,
     email character varying(64) NOT NULL,
-    password character varying(20) NOT NULL,
+    password text NOT NULL,
     is_activated boolean,
     picture character varying(200)
 );
@@ -368,26 +368,26 @@ ALTER TABLE ONLY users ALTER COLUMN user_id SET DEFAULT nextval('users_user_id_s
 --
 
 COPY actions (action_id, user_id, place_id, action_code) FROM stdin;
-1	6	34	hbh
-2	3	87	hbh
-3	10	99	sav
-4	1	65	hbh
-5	6	67	sav
-6	1	150	hbh
-7	3	74	sav
-8	7	42	hbh
-9	9	55	hbh
-10	2	7	hbh
-11	9	118	hbh
-12	8	47	hbh
-13	9	124	sav
-14	3	29	sav
-15	4	100	sav
-16	1	84	hbh
-17	7	31	hbh
-18	6	112	hbh
-19	2	140	sav
-20	8	16	hbh
+1	5	53	hbh
+2	7	89	hbh
+3	2	83	sav
+4	7	51	hbh
+5	4	3	sav
+6	2	55	sav
+7	1	106	sav
+8	8	36	sav
+9	8	74	sav
+10	4	59	hbh
+11	9	108	hbh
+12	5	32	hbh
+13	10	40	hbh
+14	9	142	hbh
+15	1	90	sav
+16	10	3	hbh
+17	3	40	sav
+18	5	126	sav
+19	7	82	sav
+20	8	73	hbh
 \.
 
 
@@ -413,17 +413,16 @@ hbh	Have been here
 --
 
 COPY activations (activation_number, user_id) FROM stdin;
-8526137043	1
-8071003262	2
-6258634672	3
-8681386642	4
-7488321046	5
-2174795489	6
-4158241121	7
-2195105914	8
-4316422674	9
-5623223490	10
-2933617472	11
+6649412959	1
+3047380656	2
+7092866595	3
+1203959973	4
+6762088540	5
+815417810	6
+4524914536	7
+4118303718	8
+2439555949	9
+6518675813	10
 \.
 
 
@@ -445,7 +444,6 @@ COPY cities (city_id, name, country_code, latitud, longitud, description, pictur
 4	New York City	US	40.742185	-73.992602	\N	\N
 5	London	GB	51.50853	-0.12574	\N	\N
 6	Cartagena	CO	10.39972	-75.51444	\N	\N
-7	San Francisco	US	\N	\N	\N	\N
 \.
 
 
@@ -453,7 +451,7 @@ COPY cities (city_id, name, country_code, latitud, longitud, description, pictur
 -- Name: cities_city_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
 --
 
-SELECT pg_catalog.setval('cities_city_id_seq', 7, true);
+SELECT pg_catalog.setval('cities_city_id_seq', 6, true);
 
 
 --
@@ -726,173 +724,173 @@ COPY place_tags (place_tag_id, place_id, tag_id) FROM stdin;
 11	11	4
 12	12	10
 13	13	4
-14	14	11
-15	15	4
+14	14	4
+15	15	11
 16	16	12
 17	17	13
 18	18	14
 19	19	15
 20	20	16
-21	21	4
+21	21	8
 22	22	17
 23	23	18
-24	24	7
-25	25	4
+24	24	4
+25	25	19
 26	26	4
-27	18	19
-28	28	4
-29	29	20
-30	30	1
+27	27	4
+28	18	20
+29	29	16
+30	30	16
 31	31	1
 32	32	21
 33	33	22
 34	34	12
-35	35	11
-36	36	4
-37	37	23
+35	35	23
+36	36	11
+37	37	4
 38	38	24
 39	39	25
-40	40	24
+40	40	25
 41	41	10
 42	42	26
 43	43	27
 44	44	28
 45	45	29
-46	46	1
-47	47	7
-48	48	25
+46	46	8
+47	47	1
+48	48	23
 49	49	12
 50	50	30
 51	51	31
 52	52	32
-53	53	33
-54	54	6
+53	53	2
+54	54	7
 55	55	13
-56	56	13
-57	57	2
-58	58	34
-59	59	4
+56	56	33
+57	57	4
+58	58	13
+59	59	34
 60	60	35
 61	61	12
 62	62	36
-63	63	24
-64	64	15
+63	63	25
+64	64	18
 65	65	37
-66	66	24
-67	67	1
-68	68	7
+66	66	1
+67	67	25
+68	68	8
 69	69	38
 70	70	39
 71	71	40
 72	72	41
-73	73	39
-74	74	7
-75	75	42
-76	76	13
-77	77	39
+73	73	41
+74	74	13
+75	75	41
+76	76	8
+77	77	42
 78	78	43
 79	79	44
 80	80	45
 81	81	46
 82	82	38
-83	83	22
-84	84	39
-85	85	47
-86	86	39
-87	87	48
-88	88	45
-89	89	49
-90	90	50
+83	83	41
+84	84	47
+85	85	22
+86	86	48
+87	87	49
+88	88	50
+89	89	41
+90	90	41
 91	91	13
 92	92	37
 93	93	51
 94	94	13
-95	95	27
+95	95	13
 96	96	52
-97	97	13
-98	98	53
-99	99	13
+97	97	27
+98	98	13
+99	99	53
 100	100	1
 101	101	13
-102	102	24
-103	103	54
-104	104	55
+102	102	54
+103	103	25
+104	104	13
 105	105	33
-106	106	13
+106	106	55
 107	107	56
-108	108	57
-109	109	58
-110	110	49
-111	111	52
-112	112	59
-113	113	27
-114	114	60
-115	115	13
+108	108	48
+109	109	52
+110	110	57
+111	111	58
+112	112	13
+113	113	59
+114	114	27
+115	115	60
 116	116	61
-117	117	62
-118	118	63
-119	119	45
-120	120	12
+117	117	13
+118	118	62
+119	119	12
+120	120	45
 121	121	13
 122	122	13
 123	123	13
 124	124	13
 125	125	13
-126	126	64
-127	127	6
-128	128	65
-129	129	17
+126	126	63
+127	127	7
+128	128	64
+129	129	19
 130	130	13
 131	131	13
-132	132	24
-133	133	66
+132	132	25
+133	133	65
 134	134	13
-135	135	25
+135	135	66
 136	136	13
 137	137	67
-138	138	68
-139	139	69
-140	140	13
-141	141	41
-142	133	66
-143	143	13
+138	138	13
+139	139	23
+140	140	68
+141	141	40
+142	133	65
+143	143	69
 144	144	13
 145	145	13
-146	146	70
-147	147	37
-148	148	6
-149	149	71
-150	150	72
-151	151	73
+146	146	13
+147	147	7
+148	148	37
+149	149	70
+150	150	71
+151	151	72
 152	152	26
 153	153	31
-154	154	62
-155	155	73
+154	154	73
+155	155	72
 156	156	28
 157	157	74
-158	158	47
-159	159	15
-160	154	45
+158	158	49
+159	154	45
+160	160	18
 161	161	75
-162	162	76
-163	163	73
+162	162	72
+163	163	76
 164	164	31
-165	165	28
-166	166	77
+165	165	77
+166	166	28
 167	167	78
 168	168	78
-169	169	62
-170	170	28
-171	171	7
-172	172	24
+169	169	73
+170	170	8
+171	171	25
+172	172	28
 173	173	31
-174	174	58
+174	174	57
 175	175	79
 176	176	80
-177	177	27
-178	178	81
-179	179	13
-180	180	27
+177	177	74
+178	178	27
+179	179	27
+180	180	13
 \.
 
 
@@ -913,121 +911,121 @@ COPY places (place_id, name, city_id, rating, latitud, longitud, address, descri
 3	Broadway Cinematheque (百老匯電影中心)	1	9.40000000000000036	22.310716183194028	114.16890263557434	G/F, Prosperous Garden, 3 Public Square St	\N	\N	https://foursquare.com/item/5195443a498edbf8a550bc56
 4	Toy Story Land	1	9.40000000000000036	22.310369992285068	114.039779214547	Hong Kong Disneyland	\N	\N	https://foursquare.com/item/4ea8e598b8f7d2a521a92c8d
 5	The Asia Society Hong Kong Center 亞洲協會香港中心	1	9.40000000000000036	22.27591114063176	114.1654487911651	9 Justice Dr	\N	\N	https://foursquare.com/item/516b8c6fe4b010e0c0352a85
-6	ArtisTree	1	9.30000000000000071	22.286708	114.212735	1/F, Cornwall House, Taikoo Place, 979 King's Rd	\N	\N	https://foursquare.com/item/517fdb5fe4b06e1ee7696897
-7	Café Gray Deluxe	1	9.30000000000000071	22.277784	114.165378	49/F, Upper House, Pacific Place, 88 Queensway	\N	\N	https://foursquare.com/item/51be6280498e40022fa144eb
-8	Victoria Peak (太平山)	1	9.30000000000000071	22.271138338877577	114.14992997222568	Peak Rd	\N	\N	https://foursquare.com/item/50b4e4d9e4b0f6a10aa028ae
+6	Victoria Peak (太平山)	1	9.30000000000000071	22.271138338877577	114.14992997222568	Peak Rd	\N	\N	https://foursquare.com/item/50b4e4d9e4b0f6a10aa028ae
+7	ArtisTree	1	9.30000000000000071	22.286708	114.212735	1/F, Cornwall House, Taikoo Place, 979 King's Rd	\N	\N	https://foursquare.com/item/517fdb5fe4b06e1ee7696897
+8	Café Gray Deluxe	1	9.30000000000000071	22.277784	114.165378	49/F, Upper House, Pacific Place, 88 Queensway	\N	\N	https://foursquare.com/item/51be6280498e40022fa144eb
 9	Samsen 泰麵	1	9.30000000000000071	22.274093	114.174093	G/F, 68 Stone Nullah Lane	\N	\N	https://foursquare.com/item/589ef12004f4d77ed036e2ec
-10	Mickey's PhilharMagic	1	9.19999999999999929	22.312061103888105	114.04047310352325	Hong Kong Disneyland	\N	\N	https://foursquare.com/item/5277cd4c498e0d29857374f9
-11	Big Grizzly Mountain Runaway Mine Cars	1	9.19999999999999929	22.310113333685624	114.04193951519044	Grizzly Gulch, Hong Kong Disneyland	\N	\N	https://foursquare.com/item/54c49b79498e64b8cdef4360
+10	Big Grizzly Mountain Runaway Mine Cars	1	9.19999999999999929	22.310113333685624	114.04193951519044	Grizzly Gulch, Hong Kong Disneyland	\N	\N	https://foursquare.com/item/54c49b79498e64b8cdef4360
+11	Mickey's PhilharMagic	1	9.19999999999999929	22.312061103888105	114.04047310352325	Hong Kong Disneyland	\N	\N	https://foursquare.com/item/5277cd4c498e0d29857374f9
 12	Hong Kong Park Aviary 香港公園觀鳥園	1	9.19999999999999929	22.27714	114.161399	Hong Kong Park	\N	\N	https://foursquare.com/item/4b4c9b2870c603bbbacf8fb4
 13	Adventureland	1	9.19999999999999929	22.312498442831586	114.04188144272356	Hong Kong Disneyland	\N	\N	https://foursquare.com/item/5279086d498e9152e02cd000
-14	Hong Kong Disneyland (香港迪士尼樂園)	1	9.19999999999999929	22.313330601839578	114.04434370895963	Fantasy Rd (Penny's Bay)	\N	\N	https://foursquare.com/item/4e1ad9a7636529dcc13b782a
-15	Sleeping Beauty's Castle	1	9.19999999999999929	22.312768364230536	114.04185240648741	Fantasyland, Hong Kong Disneyland	\N	\N	https://foursquare.com/item/51c985bd498e805f34b8ba62
+14	Sleeping Beauty's Castle	1	9.19999999999999929	22.312768364230536	114.04185240648741	Fantasyland, Hong Kong Disneyland	\N	\N	https://foursquare.com/item/51c985bd498e805f34b8ba62
+15	Hong Kong Disneyland (香港迪士尼樂園)	1	9.19999999999999929	22.313330601839578	114.04434370895963	Fantasy Rd (Penny's Bay)	\N	\N	https://foursquare.com/item/4e1ad9a7636529dcc13b782a
 16	The Sky Terrace 428 凌霄閣摩天臺428	1	9.19999999999999929	22.271315676638288	114.1500198841095	The Peak Tower, 128 Peak Rd	\N	\N	https://foursquare.com/item/5188a0cf498e470e92b650dd
-17	Hong Kong Park	1	9.09999999999999964	22.27769953093909	114.16185379028319	19 Cotton Tree Dr	\N	\N	https://foursquare.com/item/5084cf11e4b0d2d6651e5550
+17	Hong Kong Park	1	9.19999999999999929	22.27769953093909	114.16185379028319	19 Cotton Tree Dr	\N	\N	https://foursquare.com/item/5084cf11e4b0d2d6651e5550
 18	Din Tai Fung (鼎泰豐)	1	9.09999999999999964	22.2976732545756	114.16944980621338	Shop 130, 3/F, Silvercord, 30 Canton Rd	\N	\N	https://foursquare.com/item/50db27abe4b0b7ab9cc1dd4b
-19	Winstons Coffee	1	9.09999999999999964	22.28695648501287	114.1443156609422	213 Queens Rd W	\N	\N	https://foursquare.com/item/5712f616498ecfc33f311668
+19	Shing Mun Reservoir	1	9.09999999999999964	22.38727777777778	114.14825	Shing Mun Rd	\N	\N	https://foursquare.com/item/570e2be8498e8d1c226055a8
 20	Yardbird	1	9.09999999999999964	22.28360160666072	114.15011376142502	33-35 Bridges St (at Aberdeen St)	\N	\N	https://foursquare.com/item/4e605f6b1520355eb67a351b
-21	Flash	1	9.09999999999999964	22.234606358005475	114.17110928025497	Ocean Park Hong Kong	\N	\N	https://foursquare.com/item/50f28caee4b0dbfd2234f4f1
-22	Tian Tan Buddha (Giant Buddha) (天壇大佛)	1	9.09999999999999964	22.253953	113.905011	Po Lin Monastery, Ngong Ping Rd	\N	\N	https://foursquare.com/item/4f1d9acfe4b03543a3844660
-23	Pure Yoga	1	9.09999999999999964	22.283033302292747	114.15579386198564	2/F, Asia Standard Tower, 59-65 Queen's Rd C	\N	\N	https://foursquare.com/item/5386ada5498e6b709bd94c83
-24	NOT Specialty Coffee	1	9.09999999999999964	22.279719808343184	114.17888290047385	324 Jaffe Rd (btwn Marsh & Tonnochy Rd)	\N	\N	https://foursquare.com/item/562dc9d6498e4b2dbb44df93
-25	Fantasyland	1	9	22.312324131143953	114.0404462814331	Hong Kong Disneyland	\N	\N	https://foursquare.com/item/52009e3a498ef1acdc45b09d
-26	Hair Raiser 動感快車	1	9	22.234557725134476	114.17187561782718	180 Wong Chuk Hang Rd	\N	\N	https://foursquare.com/item/50f25623e4b0bf1338498328
-27	Din Tai Fung (鼎泰豐)	1	9	22.279396925607852	114.18624420086987	68 Yee Wo St, 铜锣湾	\N	\N	https://foursquare.com/item/4bd4597370c603bb672b99b4
-28	Tomorrowland	1	9	22.313536503714015	114.04192790069763	Hong Kong Disneyland	\N	\N	https://foursquare.com/item/57e759da498ec357e4315d3a
-29	Royal Hong Kong Yacht Club 香港遊艇會	1	9	22.284367	114.1821	Kellett Island	\N	\N	https://foursquare.com/item/503b4803e4b0e2a7dbd2c750
-30	Victoria Peak Garden	1	9	22.274014922218168	114.14346799250524	16 Mount Austin Rd	\N	\N	https://foursquare.com/item/4db4ee34fa8c350240effbf2
+21	NOT Specialty Coffee	1	9.09999999999999964	22.279719808343184	114.17888290047385	324 Jaffe Rd (btwn Marsh & Tonnochy Rd)	\N	\N	https://foursquare.com/item/562dc9d6498e4b2dbb44df93
+22	Pure Yoga	1	9.09999999999999964	22.283033302292747	114.15579386198564	2/F, Asia Standard Tower, 59-65 Queen's Rd C	\N	\N	https://foursquare.com/item/5386ada5498e6b709bd94c83
+23	Winstons Coffee	1	9.09999999999999964	22.28695648501287	114.1443156609422	213 Queens Rd W	\N	\N	https://foursquare.com/item/5712f616498ecfc33f311668
+24	Flash	1	9.09999999999999964	22.234606358005475	114.17110928025497	Ocean Park Hong Kong	\N	\N	https://foursquare.com/item/50f28caee4b0dbfd2234f4f1
+25	Tian Tan Buddha (Giant Buddha) (天壇大佛)	1	9.09999999999999964	22.253953	113.905011	Po Lin Monastery, Ngong Ping Rd	\N	\N	https://foursquare.com/item/4f1d9acfe4b03543a3844660
+26	Fantasyland	1	9	22.312324131143953	114.0404462814331	Hong Kong Disneyland	\N	\N	https://foursquare.com/item/52009e3a498ef1acdc45b09d
+27	Hair Raiser 動感快車	1	9	22.234557725134476	114.17187561782718	180 Wong Chuk Hang Rd	\N	\N	https://foursquare.com/item/50f25623e4b0bf1338498328
+28	Din Tai Fung (鼎泰豐)	1	9	22.279396925607852	114.18624420086987	68 Yee Wo St, 铜锣湾	\N	\N	https://foursquare.com/item/4bd4597370c603bb672b99b4
+29	Ronin	1	9	22.284359575185206	114.15273419844749	8 On Wo Ln	\N	\N	https://foursquare.com/item/5304d5f3498ef560ddc4b9b4
+30	Sake Bar Ginn	1	9	22.28110535076267	114.1552539228899	Unit 4C, Ho Lee Commercial Bldg, 38-44 D'Aguilar St	\N	\N	https://foursquare.com/item/5188fe82498e495f1f7631da
 31	Gardens by the Bay	2	9.5	1.282457110058118	103.86341536632324	18 Marina Gardens Dr	\N	\N	https://foursquare.com/item/4ff7fab3e4b054fbaaba909b
 32	Napoleon Food & Wine Bar	2	9.5	1.2799670469544204	103.84714543819426	206 Telok Ayer Street	\N	\N	https://foursquare.com/item/51c5c83f498e778c13e597ad
 33	Marina Bay Downtown Area (MBDA)	2	9.5	1.2790415374388213	103.85495626876134	Marina Blvd, Central Blvd & Surrounds	\N	\N	https://foursquare.com/item/4e9c20981081f57b9e735d9f
 34	Henderson Waves	2	9.30000000000000071	1.276239028996051	103.81523273528167	Henderson Rd (Connecting Telok Blangah Hill Park & Mt Faber Park)	\N	\N	https://foursquare.com/item/4c64dcabba119c7489bd22a2
-35	Universal Studios Singapore	2	9.30000000000000071	1.2558362351439183	103.82142514956163	32 Sentosa Gateway (Resorts World Sentosa)	\N	\N	https://foursquare.com/item/4c03b68b70c603bbfbc39db4
-36	Transformers The Ride: The Ultimate 3D Battle	2	9.30000000000000071	1.2543801160622412	103.8216062847745	Universal Studios Singapore (Sci-Fi City Zone)	\N	\N	https://foursquare.com/item/4ef41ba36da1a067a63a3b63
-37	Blu Kouzina	2	9.30000000000000071	1.303253431786934	103.81035625934601	Blk 10 Dempsey Hill #01-21 (10 Dempsey Rd)	\N	\N	https://foursquare.com/item/54320529498e30aedc0307b1
-38	Books Actually	2	9.30000000000000071	1.2825811480513059	103.83032370327051	9 Yong Siak St (Tiong Bahru Estate)	\N	\N	https://foursquare.com/item/50e0100be4b0f34007cf9b0e
-39	Singapore Botanic Gardens	2	9.30000000000000071	1.3154563430460127	103.81596290467682	1 Cluny Rd.	\N	\N	https://foursquare.com/item/4e8ac9530cd6c43cb1903465
+35	Singapore Botanic Gardens	2	9.30000000000000071	1.3154563430460127	103.81596290467682	1 Cluny Rd.	\N	\N	https://foursquare.com/item/4e8ac9530cd6c43cb1903465
+36	Universal Studios Singapore	2	9.30000000000000071	1.2558362351439183	103.82142514956163	32 Sentosa Gateway (Resorts World Sentosa)	\N	\N	https://foursquare.com/item/4c03b68b70c603bbfbc39db4
+37	Transformers The Ride: The Ultimate 3D Battle	2	9.30000000000000071	1.2543801160622412	103.8216062847745	Universal Studios Singapore (Sci-Fi City Zone)	\N	\N	https://foursquare.com/item/4ef41ba36da1a067a63a3b63
+38	Blu Kouzina	2	9.30000000000000071	1.303253431786934	103.81035625934601	Blk 10 Dempsey Hill #01-21 (10 Dempsey Rd)	\N	\N	https://foursquare.com/item/54320529498e30aedc0307b1
+39	Books Actually	2	9.30000000000000071	1.2825811480513059	103.83032370327051	9 Yong Siak St (Tiong Bahru Estate)	\N	\N	https://foursquare.com/item/50e0100be4b0f34007cf9b0e
 40	Books Kinokuniya 紀伊國屋書店	2	9.30000000000000071	1.3031855416785523	103.8342467245539	#04-20/20B/20C/20E Ngee Ann City (391 Orchard Rd)	\N	\N	https://foursquare.com/item/4ba5e1dc70c603bbf92a95b4
 41	Singapore Zoo	2	9.30000000000000071	1.4048016561145835	103.79060739455322	80 Mandai Lake Rd.	\N	\N	https://foursquare.com/item/51d3a64d498e2527fd0fa472
 42	Marina Bay Sands	2	9.30000000000000071	1.2831902557086854	103.85912418365479	10 Bayfront Avenue	\N	\N	https://foursquare.com/item/55a03979498e868f0af2cd31
 43	Esplanade - Theatres On The Bay	2	9.30000000000000071	1.2896406004717818	103.85580555199617	1 Esplanade Dr.	\N	\N	https://foursquare.com/item/4fc0fa14e4b014a2d67e724e
 44	East Coast Park	2	9.30000000000000071	1.3051144026337076	103.92740249633789	Along East Coast Pkwy (East Coast Park Service Rd)	\N	\N	https://foursquare.com/item/4c5037348edf0f471f6fe2ae
 45	Resorts World Sentosa	2	9.19999999999999929	1.2564040250000972	103.82051381669906	8 Sentosa Gateway	\N	\N	https://foursquare.com/item/4ddf84913151c0922ed0a275
-46	National Orchid Garden	2	9.19999999999999929	1.3117038129541208	103.81474029768252	Singapore Botanic Gardens (1 Cluny Rd. (Central Core along Tyersall Ave.))	\N	\N	https://foursquare.com/item/51521d0ee4b0507a3943715a
-47	Percolate	2	9.19999999999999929	1.3280234803803905	103.93487431293876	#01-152, 136 Bedok North Ave 3	\N	\N	https://foursquare.com/item/53773823498e90583ae891b2
+46	Percolate	2	9.19999999999999929	1.3280234803803905	103.93487431293876	#01-152, 136 Bedok North Ave 3	\N	\N	https://foursquare.com/item/53773823498e90583ae891b2
+47	National Orchid Garden	2	9.19999999999999929	1.3117038129541208	103.81474029768252	Singapore Botanic Gardens (1 Cluny Rd. (Central Core along Tyersall Ave.))	\N	\N	https://foursquare.com/item/51521d0ee4b0507a3943715a
 48	Cloud Forest	2	9.19999999999999929	1.283866002786424	103.86573314666748	Gardens By The Bay (18 Marina Gardens Dr.)	\N	\N	https://foursquare.com/item/501aaea8e4b07ea8afb15026
 49	Marina Bay Sands Boardwalk	2	9.19999999999999929	1.284048347205377	103.85849118232727	10 Bayfront Avenue	\N	\N	https://foursquare.com/item/53714ce511d26dd2ea2c25ba
 50	28 HongKong Street	2	9.19999999999999929	1.287873047219137	103.84684871187127	28 Hong Kong Street	\N	\N	https://foursquare.com/item/51f5d1aa498e5eb85c39fe58
 51	Tom's Palette	2	9.19999999999999929	1.29599858576298	103.8567567555145	#01-25 Shaw Towers (100 Beach Road)	\N	\N	https://foursquare.com/item/4ccc348db571b60c3bf9d065
 52	Binomio Spanish Restaurante	2	9.19999999999999929	1.2778417019561932	103.84228559303185	#01-02, Craig Place (20 Craig Rd.)	\N	\N	https://foursquare.com/item/51bc0a95498e7e9461eca6dd
-53	Sephora	2	9.19999999999999929	1.3038197334026675	103.83206159335528	#B2-09, ION Orchard (2 Orchard Turn)	\N	\N	https://foursquare.com/item/4c7f14ce8e64952163b813bd
-54	National Gal­lery Singa­pore	2	9.19999999999999929	1.2907395913341984	103.85154786540198	1 St. Andrew's Road	\N	\N	https://foursquare.com/item/5693cee3498e0bad978adeb2
-55	Mount Faber Park	2	9.09999999999999964	1.2727409581382068	103.81864022617543	Mount Faber Rd	\N	\N	https://foursquare.com/item/541ee970498e943eba8d1ee3
-56	Punggol Waterway Park	2	9.09999999999999964	1.4102274642652444	103.90697479248047	Punggol	\N	\N	https://foursquare.com/item/4eb403028b81a81f8fe988d3
-57	Punggol Promenade Riverside Walk	2	9.09999999999999964	1.3932439841755129	103.91734169924771	Punggol East	\N	\N	https://foursquare.com/item/4df7eeafa809df9984e8460e
-58	Louis Vuitton Island Maison	2	9.09999999999999964	1.2850588251910706	103.85863087238256	Marina Bay Sands (2 Bayfront Ave.)	\N	\N	https://foursquare.com/item/4e8addcce5e8cd224a750f43
-59	The Singapore Flyer	2	9.09999999999999964	1.2894447773183417	103.86324549975406	30 Raffles Ave	\N	\N	https://foursquare.com/item/5162eb5c498e5d9dadd35b2d
-60	MacRitchie Reservoir	2	9.09999999999999964	1.3426982080671415	103.83363246917725	MacRitchie Reservoir Park	\N	\N	https://foursquare.com/item/526b265911d27c7e42e8c3d9
+53	Punggol Promenade Riverside Walk	2	9.19999999999999929	1.3932439841755129	103.91734169924771	Punggol East	\N	\N	https://foursquare.com/item/4df7eeafa809df9984e8460e
+54	National Gal­lery Singa­pore	2	9.09999999999999964	1.2907395913341984	103.85154786540198	1 St. Andrew's Road	\N	\N	https://foursquare.com/item/5693cee3498e0bad978adeb2
+55	Punggol Waterway Park	2	9.09999999999999964	1.4102274642652444	103.90697479248047	Punggol	\N	\N	https://foursquare.com/item/4eb403028b81a81f8fe988d3
+56	Sephora	2	9.09999999999999964	1.3038197334026675	103.83206159335528	#B2-09, ION Orchard (2 Orchard Turn)	\N	\N	https://foursquare.com/item/4c7f14ce8e64952163b813bd
+57	The Singapore Flyer	2	9.09999999999999964	1.2894447773183417	103.86324549975406	30 Raffles Ave	\N	\N	https://foursquare.com/item/5162eb5c498e5d9dadd35b2d
+58	Mount Faber Park	2	9.09999999999999964	1.2727409581382068	103.81864022617543	Mount Faber Rd	\N	\N	https://foursquare.com/item/541ee970498e943eba8d1ee3
+59	Rooftop Infinity Pool	2	9.09999999999999964	1.2836796223931373	103.86065789188754	Level 57, Marina Bay Sands Hotel (12A Bayfront Ave)	\N	\N	https://foursquare.com/item/4d731670ec075481a02193bf
+60	Louis Vuitton Island Maison	2	9.09999999999999964	1.2850588251910706	103.85863087238256	Marina Bay Sands (2 Bayfront Ave.)	\N	\N	https://foursquare.com/item/4e8addcce5e8cd224a750f43
 61	Monteliusvägen	3	9.5	59.32074765317659	18.06259770163445	Monteliusvägen	\N	\N	https://foursquare.com/item/50995297e4b0fd2387c50b02
 62	Klättercentret	3	9.5	59.29907433092187	17.991520561261485	Tellusgången 24	\N	\N	https://foursquare.com/item/53ab4494498eddb7e1576f3b
 63	Papercut	3	9.5	59.317171692578555	18.054880964900807	Krukmakargatan 24–26	\N	\N	https://foursquare.com/item/51595ef2e4b0dc047ec21a70
 64	Johan & Nyström	3	9.5	59.316209845175614	18.063844070646958	Swedenborgsgatan 7 (Maria Prästgårdsgata)	\N	\N	https://foursquare.com/item/52779c2f11d220aa1d9ae399
 65	Fotografiska	3	9.5	59.317987362345406	18.085006451389237	Stadsgårdshamnen 22	\N	\N	https://foursquare.com/item/4e33fac3b3ad90171c63445d
-66	Science Fiction Bokhandeln	3	9.40000000000000036	59.324040574431656	18.070626918333545	Västerlånggatan 48 (Gamla Stan)	\N	\N	https://foursquare.com/item/4c485e71972c0f4797bf2621
-67	Rosendals Trädgård	3	9.40000000000000036	59.327447531966364	18.115183206731857	Rosendalsterrassen 12	\N	\N	https://foursquare.com/item/5343363a498e48d2bdc7c5a1
+66	Rosendals Trädgård	3	9.40000000000000036	59.327447531966364	18.115183206731857	Rosendalsterrassen 12	\N	\N	https://foursquare.com/item/5343363a498e48d2bdc7c5a1
+67	Science Fiction Bokhandeln	3	9.40000000000000036	59.324040574431656	18.070626918333545	Västerlånggatan 48 (Gamla Stan)	\N	\N	https://foursquare.com/item/4c485e71972c0f4797bf2621
 68	Snickarbacken 7	3	9.40000000000000036	59.33794104458486	18.0679698710224	Snickarbacken 7	\N	\N	https://foursquare.com/item/512895e3e4b0fb383035dbdc
 69	Sivletto	3	9.40000000000000036	59.30961801913805	18.089211881160736	Malmgårdsvägen 16-18 (at Ringvägen)	\N	\N	https://foursquare.com/item/571b563c498e4be6bcc7a7bb
-70	Lilla Ego	3	9.40000000000000036	59.34376	18.045631	Västmannagatan 69	\N	\N	https://foursquare.com/item/55d4d6be498e485b599b05db
-71	Stockholms Stadshus | Stockholm City Hall (Stockholms Stadshus)	3	9.30000000000000071	59.32744588143589	18.05499494075775	Ragnar Östbergs plan 1	\N	\N	https://foursquare.com/item/51ebcf39498e4f9b4a92f6c1
-72	Vasamuseet	3	9.30000000000000071	59.32784815275516	18.091607093811035	Galärvarvsvägen 14 (Djurgårdsvägen)	\N	\N	https://foursquare.com/item/4edddc8b8231efe393788e71
+70	Stockholms Stadshus | Stockholm City Hall (Stockholms Stadshus)	3	9.40000000000000036	59.32744588143589	18.05499494075775	Ragnar Östbergs plan 1	\N	\N	https://foursquare.com/item/51ebcf39498e4f9b4a92f6c1
+71	Vasamuseet	3	9.30000000000000071	59.32784815275516	18.091607093811035	Galärvarvsvägen 14 (Djurgårdsvägen)	\N	\N	https://foursquare.com/item/4edddc8b8231efe393788e71
+72	Lilla Ego	3	9.30000000000000071	59.34376	18.045631	Västmannagatan 69	\N	\N	https://foursquare.com/item/55d4d6be498e485b599b05db
 73	Oaxen Krog & Slip	3	9.30000000000000071	59.32232111516647	18.101470170666516	Beckholmsvägen 26 (Djurgården)	\N	\N	https://foursquare.com/item/54f323b5498e60009296d9bb
-74	Café Pascal	3	9.30000000000000071	59.3419875630816	18.05197477340698	Norrtullsgatan 4 (Sandåsgatan)	\N	\N	https://foursquare.com/item/55199bae498e4147d065c31c
-75	Linje Tio	3	9.30000000000000071	59.31619183255724	18.035047687018626	Hornsbruksgatan 24 (Borgargatan)	\N	\N	https://foursquare.com/item/53cf6f45498e2dae354d98d6
-76	Humlegården	3	9.30000000000000071	59.338757620691425	18.072455872562365	Humlegårdsgatan	\N	\N	https://foursquare.com/item/4edeb5a5b8f76b6e9cd9b775
-77	Kalf & Hansen	3	9.30000000000000071	59.318931110835905	18.061942836651983	Mariatorget 2	\N	\N	https://foursquare.com/item/53fdbcc9498ee29eeebf7025
+74	Humlegården	3	9.30000000000000071	59.338757620691425	18.072455872562365	Humlegårdsgatan	\N	\N	https://foursquare.com/item/4edeb5a5b8f76b6e9cd9b775
+75	Kalf & Hansen	3	9.30000000000000071	59.318931110835905	18.061942836651983	Mariatorget 2	\N	\N	https://foursquare.com/item/53fdbcc9498ee29eeebf7025
+76	Café Pascal	3	9.30000000000000071	59.3419875630816	18.05197477340698	Norrtullsgatan 4 (Sandåsgatan)	\N	\N	https://foursquare.com/item/55199bae498e4147d065c31c
+77	Linje Tio	3	9.30000000000000071	59.31619183255724	18.035047687018626	Hornsbruksgatan 24 (Borgargatan)	\N	\N	https://foursquare.com/item/53cf6f45498e2dae354d98d6
 78	Nackareservatet	3	9.30000000000000071	59.288262477543654	18.12200789174107	Sverige	\N	\N	https://foursquare.com/item/572cb702498e379a1b068fd9
 79	Farang	3	9.30000000000000071	59.3416374320375	18.062725067138672	Tulegatan 7 (Rådmansgatan)	\N	\N	https://foursquare.com/item/51aef897498e5587bc60877e
 80	Pizza Hatt	3	9.30000000000000071	59.337240930764764	18.05401689900642	Upplandsgatan 9B (Kammakargatan)	\N	\N	https://foursquare.com/item/4cd2c9b8fa66236a6611ed2e
 81	Akkurat	3	9.30000000000000071	59.319644425962025	18.068883622738515	Hornsgatan 18	\N	\N	https://foursquare.com/item/4fbfe663e4b0bccbf57aeb3d
 82	Grandpa	3	9.19999999999999929	59.312822	18.080763	Södermannagatan 21 (Bondegatan)	\N	\N	https://foursquare.com/item/54fc52fb498e6dddac50e422
-83	Hornsbergs Strand	3	9.19999999999999929	59.34064172715326	18.00682783126831	Kungsholmen	\N	\N	https://foursquare.com/item/51ec2c6f498e1729c83c90af
-84	Bakfickan	3	9.19999999999999929	59.330055	18.07102	Karl XII:s Torg	\N	\N	https://foursquare.com/item/55b4bb7f498e86438a7ff111
-85	Reggev Hummus	3	9.19999999999999929	59.308763	18.082216	Ringvägen 145 (btw Bjurholmsgatan & Södermannagatan)	\N	\N	https://foursquare.com/item/4e99939977c85da036f264b7
-86	Rolfs Kök	3	9.19999999999999929	59.33871041413502	18.05702805519104	Tegnérgatan 41	\N	\N	https://foursquare.com/item/4c9b36d9d4b1b1f75f8ad635
-87	Pen Store	3	9.19999999999999929	59.317550315729385	18.051835751327715	Hornsgatan 98	\N	\N	https://foursquare.com/item/56e2dd1d498eb73dd5d8e207
-88	800 grader	3	9.19999999999999929	59.34242804623578	18.04084761922348	Sigtunagatan 17	\N	\N	https://foursquare.com/item/56116dae498ee97d50a5243b
-89	Wijnjas grosshandel	3	9.19999999999999929	59.32958904076409	18.046292451172757	Bergsgatan 24 (at Pipersgatan)	\N	\N	https://foursquare.com/item/54341f7811d259b7bf4952ba
-90	AG Restaurang & Bar	3	9.19999999999999929	59.33518662932892	18.03496074467464	Kronobergsgatan 37 (Fleminggatan)	\N	\N	https://foursquare.com/item/4b05626b70c603bb0eed8eb4
+83	Bakfickan	3	9.19999999999999929	59.330055	18.07102	Karl XII:s Torg	\N	\N	https://foursquare.com/item/55b4bb7f498e86438a7ff111
+84	Svenskt Tenn	3	9.19999999999999929	59.33245156952335	18.078545771140124	Strandvägen 5 (at Sibyllegatan)	\N	\N	https://foursquare.com/item/53433411498ed68c2d3f5a0b
+85	Hornsbergs Strand	3	9.19999999999999929	59.34064172715326	18.00682783126831	Kungsholmen	\N	\N	https://foursquare.com/item/51ec2c6f498e1729c83c90af
+86	Wijnjas grosshandel	3	9.19999999999999929	59.32958904076409	18.046292451172757	Bergsgatan 24 (at Pipersgatan)	\N	\N	https://foursquare.com/item/54341f7811d259b7bf4952ba
+87	Reggev Hummus	3	9.19999999999999929	59.308763	18.082216	Ringvägen 145 (btw Bjurholmsgatan & Södermannagatan)	\N	\N	https://foursquare.com/item/4e99939977c85da036f264b7
+88	Pen Store	3	9.19999999999999929	59.317550315729385	18.051835751327715	Hornsgatan 98	\N	\N	https://foursquare.com/item/56e2dd1d498eb73dd5d8e207
+89	Speceriet	3	9.19999999999999929	59.333803020889185	18.080834954224848	Artillerigatan 14	\N	\N	https://foursquare.com/item/51ded703498edd1da5d93d34
+90	Rolfs Kök	3	9.19999999999999929	59.33871041413502	18.05702805519104	Tegnérgatan 41	\N	\N	https://foursquare.com/item/4c9b36d9d4b1b1f75f8ad635
 91	Central Park	4	9.80000000000000071	40.78885994449482	-73.96116256713867	59th St to 110th St (5th Ave to Central Park West)	\N	\N	https://foursquare.com/item/5150464ee4b02f70eb28eee4
 92	The Metropolitan Museum of Art (Metropolitan Museum of Art)	4	9.69999999999999929	40.77913186407382	-73.96291774473308	1000 5th Ave (btwn E 80th & E 84th St)	\N	\N	https://foursquare.com/item/512d1d4fe4b0ae1a14d17f5f
 93	Aire Ancient Baths	4	9.69999999999999929	40.71814377480724	-74.0049147605896	88 Franklin St (at Church St)	\N	\N	https://foursquare.com/item/51672662e4b0a1b862b1530c
 94	Bryant Park	4	9.59999999999999964	40.754068523120246	-73.98415362980316	E 42nd St (btwn 5th & 6th Ave)	\N	\N	https://foursquare.com/item/4ca509f2ae1eef3b8bfc2f47
-95	Minskoff Theatre	4	9.59999999999999964	40.75749442223194	-73.98568022741497	1515 Broadway (at W 45th St)	\N	\N	https://foursquare.com/item/4b2d716970c603bbca7e8fb4
+95	High Line	4	9.59999999999999964	40.74488019457947	-74.00559949094632	btwn Gansevoort & W 34th St (btwn 10th & 12th Ave)	\N	\N	https://foursquare.com/item/4eaed5b72c5bb67b2435833e
 96	Equinox West 50th Street	4	9.59999999999999964	40.762177	-73.984548	1633 Broadway (at Paramount Plz)	\N	\N	\N
-97	High Line	4	9.59999999999999964	40.74488019457947	-74.00559949094632	btwn Gansevoort & W 34th St (btwn 10th & 12th Ave)	\N	\N	https://foursquare.com/item/4eaed5b72c5bb67b2435833e
-98	West Side Highway Running Path	4	9.59999999999999964	40.733218047025495	-74.00863511726843	West Side Highway (btwn Battery Park & W 72nd St)	\N	\N	https://foursquare.com/item/51f039a0498ef4a3724bbbed
-99	Gantry Plaza State Park	4	9.59999999999999964	40.74655794031174	-73.9580512046814	474 48th Ave (at Center Blvd)	\N	\N	https://foursquare.com/item/4e871dc8775b8a3951afd996
+97	Minskoff Theatre	4	9.59999999999999964	40.75749442223194	-73.98568022741497	1515 Broadway (at W 45th St)	\N	\N	https://foursquare.com/item/4b2d716970c603bbca7e8fb4
+98	Gantry Plaza State Park	4	9.59999999999999964	40.74655794031174	-73.9580512046814	474 48th Ave (at Center Blvd)	\N	\N	https://foursquare.com/item/4e871dc8775b8a3951afd996
+99	West Side Highway Running Path	4	9.59999999999999964	40.733218047025495	-74.00863511726843	West Side Highway (btwn Battery Park & W 72nd St)	\N	\N	https://foursquare.com/item/51f039a0498ef4a3724bbbed
 100	Central Park - Conservatory Garden	4	9.59999999999999964	40.79424530078437	-73.95197868347168	1231 5th Ave (at 105th St)	\N	\N	https://foursquare.com/item/4de6af768130690dbf1147ca
 101	Washington Square Park	4	9.59999999999999964	40.73077900590829	-73.99755972622535	W 4th St (btwn MacDougal St & University Pl)	\N	\N	https://foursquare.com/item/4c757e2c6f789c7494424c4c
-102	Strand Bookstore	4	9.59999999999999964	40.73320178975766	-73.99096009548717	828 Broadway (at E 12th St)	\N	\N	https://foursquare.com/item/4be21e8470c603bb5d639ab4
-103	New York Public Library - Schomburg Center for Research in Black Culture	4	9.59999999999999964	40.81413402921382	-73.94021987915039	515 Malcolm X Blvd (at W 135th St.)	\N	\N	https://foursquare.com/item/50cb8389e4b05e0e484daa63
-104	I Love Kickboxing - Midtown East 43rd	4	9.59999999999999964	40.75059241608557	-73.97161326199841	303 E 43rd Street, Lower Level (2nd Ave.)	\N	\N	https://foursquare.com/item/543882d611d24cd01f11a50f
+102	New York Public Library - Schomburg Center for Research in Black Culture	4	9.59999999999999964	40.81413402921382	-73.94021987915039	515 Malcolm X Blvd (at W 135th St.)	\N	\N	https://foursquare.com/item/50cb8389e4b05e0e484daa63
+103	Strand Bookstore	4	9.59999999999999964	40.73320178975766	-73.99096009548717	828 Broadway (at E 12th St)	\N	\N	https://foursquare.com/item/4be21e8470c603bb5d639ab4
+104	Riverside Park	4	9.59999999999999964	40.806809433439135	-73.96865129470825	Riverside Dr. (btwn W 59th St. & St. Clair Pl.)	\N	\N	https://foursquare.com/item/51c0d794498efff55bf8dac9
 105	Elf Cosmetics	4	9.59999999999999964	40.72988079657862	-73.99235464508372	10 W 33rd St Rm 802 (5th Avenue)	\N	\N	https://foursquare.com/item/578e5afb498e144cd7cc8863
-106	Riverside Park	4	9.59999999999999964	40.806809433439135	-73.96865129470825	Riverside Dr. (btwn W 59th St. & St. Clair Pl.)	\N	\N	https://foursquare.com/item/51c0d794498efff55bf8dac9
-107	Lincoln Center for the Performing Arts	4	9.59999999999999964	40.77223354479133	-73.98289102110769	70 Lincoln Center Plz (btwn Columbus & 10th Ave)	\N	\N	https://foursquare.com/item/4be2234d70c603bbdd639ab4
-108	St. Patrick's Cathedral	4	9.59999999999999964	40.75874373368367	-73.97660654989457	14 E 51st St (at 5th Ave)	\N	\N	https://foursquare.com/item/4bf6e15e70c603bb556b9cb4
-109	Levain Bakery	4	9.59999999999999964	40.77984275934918	-73.98056030273438	167 W 74th St (at Amsterdam Ave)	\N	\N	https://foursquare.com/item/5110161ce4b03a1187a32fe3
-110	Murray's Cheese	4	9.59999999999999964	40.73109392616922	-74.00284500572215	254 Bleecker St (at Cornelia St)	\N	\N	https://foursquare.com/item/5155a2f8e4b065694633ed6b
-111	Equinox East 63rd Street	4	9.59999999999999964	40.764401	-73.966462	817 Lexington Avenue (at E 63rd St)	\N	\N	https://foursquare.com/item/5841f9ffc45ee347d5b8d11d
-112	Brooklyn Bridge	4	9.59999999999999964	40.70717813660742	-73.99691125083612	Brooklyn Bridge	\N	\N	https://foursquare.com/item/4bb155a870c603bb712496b4
-113	David H. Koch Theater	4	9.59999999999999964	40.77199437487606	-73.98347854614258	Lincoln Center Plaza (at W 63rd St & Columbus Ave)	\N	\N	https://foursquare.com/item/5050dce9e4b0e464efcdcb20
-114	Union Square Greenmarket	4	9.59999999999999964	40.73652697126574	-73.9905595779419	1 Union Sq W (btwn 15th & 17th St)	\N	\N	https://foursquare.com/item/4d93acf9a8a95941ce962978
-115	Hudson River Park	4	9.59999999999999964	40.73265337566474	-74.01070666068738	West St (btwn Battery Pl & W 59th St)	\N	\N	https://foursquare.com/item/4cbdfc6fee009521d0c5fb24
-116	Jacqueline Kennedy Onassis Reservoir	4	9.59999999999999964	40.78511988296314	-73.96247578387509	Central Park (btwn 85th & 96th St)	\N	\N	https://foursquare.com/item/4be2204270c603bb96639ab4
-117	L'Artusi	4	9.59999999999999964	40.733793607045456	-74.00506581253089	228 W 10th St (btwn Bleecker & Hudson St)	\N	\N	https://foursquare.com/item/4d4622693616b60cf345f5c2
+106	Lincoln Center for the Performing Arts	4	9.59999999999999964	40.77223354479133	-73.98289102110769	70 Lincoln Center Plz (btwn Columbus & 10th Ave)	\N	\N	https://foursquare.com/item/4be2234d70c603bbdd639ab4
+107	St. Patrick's Cathedral	4	9.59999999999999964	40.75874373368367	-73.97660654989457	14 E 51st St (at 5th Ave)	\N	\N	https://foursquare.com/item/4bf6e15e70c603bb556b9cb4
+108	Murray's Cheese	4	9.59999999999999964	40.73109392616922	-74.00284500572215	254 Bleecker St (at Cornelia St)	\N	\N	https://foursquare.com/item/5155a2f8e4b065694633ed6b
+109	Equinox East 63rd Street	4	9.59999999999999964	40.764401	-73.966462	817 Lexington Avenue (at E 63rd St)	\N	\N	https://foursquare.com/item/5841f9ffc45ee347d5b8d11d
+110	Levain Bakery	4	9.59999999999999964	40.77984275934918	-73.98056030273438	167 W 74th St (at Amsterdam Ave)	\N	\N	https://foursquare.com/item/5110161ce4b03a1187a32fe3
+111	I Love Kickboxing - Midtown East 43rd	4	9.59999999999999964	40.75059241608557	-73.97161326199841	303 E 43rd Street, Lower Level (2nd Ave.)	\N	\N	https://foursquare.com/item/543882d611d24cd01f11a50f
+112	Hudson River Park	4	9.59999999999999964	40.73265337566474	-74.01070666068738	West St (btwn Battery Pl & W 59th St)	\N	\N	https://foursquare.com/item/4cbdfc6fee009521d0c5fb24
+113	Brooklyn Bridge	4	9.59999999999999964	40.70717813660742	-73.99691125083612	Brooklyn Bridge	\N	\N	https://foursquare.com/item/4bb155a870c603bb712496b4
+114	David H. Koch Theater	4	9.59999999999999964	40.77199437487606	-73.98347854614258	Lincoln Center Plaza (at W 63rd St & Columbus Ave)	\N	\N	https://foursquare.com/item/5050dce9e4b0e464efcdcb20
+115	Jacqueline Kennedy Onassis Reservoir	4	9.59999999999999964	40.78511988296314	-73.96247578387509	Central Park (btwn 85th & 96th St)	\N	\N	https://foursquare.com/item/4be2204270c603bb96639ab4
+116	Union Square Greenmarket	4	9.59999999999999964	40.73652697126574	-73.9905595779419	1 Union Sq W (btwn 15th & 17th St)	\N	\N	https://foursquare.com/item/4d93acf9a8a95941ce962978
+117	Carl Schurz Park	4	9.59999999999999964	40.77511823969361	-73.94376326618595	599 E 86th St (at East End Ave)	\N	\N	https://foursquare.com/item/4cacdecbeabd76b0730f7ddf
 118	Bethesda Fountain	4	9.59999999999999964	40.77429373881737	-73.9708399772644	Terrace Dr (at Central Park)	\N	\N	https://foursquare.com/item/4ff31547e4b041a995485e27
-119	Rubirosa Ristorante	4	9.59999999999999964	40.722726166658305	-73.99599305184151	235 Mulberry St (btwn Prince & Spring St)	\N	\N	https://foursquare.com/item/4e8cbed9be7bc43c182e5487
-120	Top of The Rock Observation Deck	4	9.59999999999999964	40.75903357413162	-73.97933721542358	30 Rockefeller Plz (btwn 5th & 6th Ave)	\N	\N	https://foursquare.com/item/4e49771262e13240b6f23c6c
+119	Top of The Rock Observation Deck	4	9.59999999999999964	40.75903357413162	-73.97933721542358	30 Rockefeller Plz (btwn 5th & 6th Ave)	\N	\N	https://foursquare.com/item/4e49771262e13240b6f23c6c
+120	Rubirosa Ristorante	4	9.59999999999999964	40.722726166658305	-73.99599305184151	235 Mulberry St (btwn Prince & Spring St)	\N	\N	https://foursquare.com/item/4e8cbed9be7bc43c182e5487
 121	Hyde Park	5	9.69999999999999929	51.50778087767913	-0.16239166259765625	Serpentine Rd	\N	\N	https://foursquare.com/item/51bde126498e9198c22500b0
 122	Regent's Park	5	9.69999999999999929	51.527247837410805	-0.15111879685219604	Chester Rd	\N	\N	https://foursquare.com/item/51ba92cf498e54a17abde041
 123	Hampstead Heath	5	9.69999999999999929	51.56351904151964	-0.16839981079101562	E Heath Rd	\N	\N	https://foursquare.com/item/4d5a787a8e1059416c37dee1
@@ -1042,20 +1040,20 @@ COPY places (place_id, name, city_id, rating, latitud, longitud, address, descri
 132	Daunt Books	5	9.59999999999999964	51.520446103688144	-0.15188031915267824	83 Marylebone High St (Paddington St)	\N	\N	https://foursquare.com/item/4f9918f1e4b06526ab6c55ce
 133	Dishoom	5	9.59999999999999964	51.52452361919365	-0.07674786755631656	7 Boundary St	\N	\N	https://foursquare.com/item/51045cb6e4b0f868863c82e8
 134	Holland Park	5	9.59999999999999964	51.50259867448262	-0.2036762237548828	Ilchester Pl	\N	\N	https://foursquare.com/item/4d5926175e7788bff9b8849e
-135	Royal Botanic Gardens (Royal Botanic Gardens, Kew)	5	9.5	51.477747968798816	-0.296630859375	Kew Rd	\N	\N	https://foursquare.com/item/4f466166e4b00ed04a3aae96
-136	Kensington Gardens	5	9.5	51.50536748609696	-0.18559692951674742	Exhibition Rd	\N	\N	https://foursquare.com/item/518ffd5a498e1e45fb05f36c
+135	Maltby Street Market	5	9.59999999999999964	51.499326358394505	-0.07560628325817981	Rope Walk (Maltby St)	\N	\N	https://foursquare.com/item/4f7087d8e4b03b575eed01b1
+136	Kensington Gardens	5	9.59999999999999964	51.50536748609696	-0.18559692951674742	Exhibition Rd	\N	\N	https://foursquare.com/item/518ffd5a498e1e45fb05f36c
 137	Somerset House	5	9.5	51.51078575130956	-0.11789917945861816	Strand	\N	\N	https://foursquare.com/item/50d04952e4b028fc43581adb
-138	Maltby Street Market	5	9.5	51.499326358394505	-0.07560628325817981	Rope Walk (Maltby St)	\N	\N	https://foursquare.com/item/4f7087d8e4b03b575eed01b1
-139	Rough Trade East	5	9.5	51.5210642591425	-0.0724947452545166	91 Brick Ln	\N	\N	https://foursquare.com/item/4e395a0f1fc77951ffe69e4d
-140	Richmond Park	5	9.5	51.438787958727794	-0.2747011184692383	Richmond	\N	\N	https://foursquare.com/item/4acde01070c603bbea908eb4
+138	Richmond Park	5	9.5	51.438787958727794	-0.2747011184692383	Richmond	\N	\N	https://foursquare.com/item/4acde01070c603bbea908eb4
+139	Royal Botanic Gardens (Royal Botanic Gardens, Kew)	5	9.5	51.477747968798816	-0.296630859375	Kew Rd	\N	\N	https://foursquare.com/item/4f466166e4b00ed04a3aae96
+140	Rough Trade East	5	9.5	51.5210642591425	-0.0724947452545166	91 Brick Ln	\N	\N	https://foursquare.com/item/4e395a0f1fc77951ffe69e4d
 141	British Museum	5	9.5	51.51909051512128	-0.1265965471332373	Great Russell St (btwn Montague & Bloomsbury)	\N	\N	https://foursquare.com/item/51895de4498eaddda1d26171
 142	Dishoom	5	9.5	51.536116098887355	-0.12568378171178593	5 Stable St	\N	\N	https://foursquare.com/item/5499cf4a498e4a801262bc04
-143	Battersea Park	5	9.5	51.479512013817555	-0.1569843292236328	Albert Bridge Rd	\N	\N	https://foursquare.com/item/4d593fc95e7788bf287f859e
-144	Clissold Park	5	9.5	51.56076785329521	-0.08901603993015311	Church St (at Green Ln)	\N	\N	https://foursquare.com/item/4ad0984a70c603bb40948eb4
-145	Brockwell Park	5	9.5	51.45047677918557	-0.10788917541503906	Dulwich Rd	\N	\N	https://foursquare.com/item/4f71a164e4b0022eb9ce9cc7
-146	Scott's	5	9.5	51.50974974863149	-0.15086267845070342	20 Mount St.	\N	\N	https://foursquare.com/item/4bf404a470c603bb3e1f9cb4
-147	Victoria and Albert Museum (V&A)	5	9.5	51.4964175460653	-0.17237235342987087	Cromwell Rd	\N	\N	https://foursquare.com/item/51e5c875498e1f652f88d018
-148	Tate Britain	5	9.5	51.49077851281006	-0.12711536698936093	Millbank	\N	\N	https://foursquare.com/item/4d345adc306160fcb63c6b88
+143	Scott's	5	9.5	51.50974974863149	-0.15086267845070342	20 Mount St.	\N	\N	https://foursquare.com/item/4bf404a470c603bb3e1f9cb4
+144	Battersea Park	5	9.5	51.479512013817555	-0.1569843292236328	Albert Bridge Rd	\N	\N	https://foursquare.com/item/4d593fc95e7788bf287f859e
+145	Clissold Park	5	9.5	51.56076785329521	-0.08901603993015311	Church St (at Green Ln)	\N	\N	https://foursquare.com/item/4ad0984a70c603bb40948eb4
+146	Brockwell Park	5	9.5	51.45047677918557	-0.10788917541503906	Dulwich Rd	\N	\N	https://foursquare.com/item/4f71a164e4b0022eb9ce9cc7
+147	Tate Britain	5	9.5	51.49077851281006	-0.12711536698936093	Millbank	\N	\N	https://foursquare.com/item/4d345adc306160fcb63c6b88
+148	Victoria and Albert Museum (V&A)	5	9.5	51.4964175460653	-0.17237235342987087	Cromwell Rd	\N	\N	https://foursquare.com/item/51e5c875498e1f652f88d018
 149	Coya London	5	9.5	51.50440036150375	-0.1477551586390948	118 Piccadilly (Old Park Lane)	\N	\N	https://foursquare.com/item/515301a4e4b0cffe8e8868b7
 150	Scarfes Bar	5	9.5	51.517866	-0.118259	252 High Holborn	\N	\N	https://foursquare.com/item/54a078f4498e6a3066ad9098
 151	Centro Histórico de Cartagena / Ciudad Amurallada	6	9.59999999999999964	10.424203397846842	-75.5488990963779	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/50214cbee4b048261ce07e7d
@@ -1066,28 +1064,28 @@ COPY places (place_id, name, city_id, rating, latitud, longitud, address, descri
 156	Bahía de Manga	6	9.19999999999999929	10.410748060925236	-75.53890228271484	Calle 36	\N	\N	https://foursquare.com/item/5023d836e4b0e5018875b762
 157	Restaurante Donjuán	6	9.19999999999999929	10.4239855317609	-75.5495935678482	Calle del Colegio # 34-60 Local 1	\N	\N	https://foursquare.com/item/4d36444dedbd37046fda68e3
 158	Azzahr by El Arabe	6	9.19999999999999929	10.423676851537428	-75.55327134893727	Calle de la Artilleria # 33 - 24 (Centro Historico)	\N	\N	https://foursquare.com/item/585da6b6964d7878e39c7654
-159	Juan Valdez Café	6	9.09999999999999964	10.402348	-75.556178	Bocagrande Av. San Martín #7-17	\N	\N	https://foursquare.com/item/4cfd36552c1aa090321a057a
-160	Di Silvio Trattoria	6	9.09999999999999964	10.39910712817434	-75.55653481871336	Colombia	\N	\N	https://foursquare.com/item/57d6f4f4498eb016f7237f68
+159	Di Silvio Trattoria	6	9.19999999999999929	10.39910712817434	-75.55653481871336	Colombia	\N	\N	https://foursquare.com/item/57d6f4f4498eb016f7237f68
+160	Juan Valdez Café	6	9.09999999999999964	10.402348	-75.556178	Bocagrande Av. San Martín #7-17	\N	\N	https://foursquare.com/item/4cfd36552c1aa090321a057a
 161	Restaurante La Mulata	6	9.09999999999999964	10.426277825230748	-75.54672713620855	Calle de Quero	\N	\N	https://foursquare.com/item/5287bf6f11d2cccdffb6ceab
-162	EL BARÓN - Café & Liquor Bar	6	9.09999999999999964	10.422007069472345	-75.55076569318771	Carrera 4 No. 31-7 (Plaza de San Pedro Claver)	\N	\N	https://foursquare.com/item/532e075b498e3c6c3433fbfa
-163	Torre del Reloj	6	9.09999999999999964	10.422980474488789	-75.54912954568863	Centro	\N	\N	https://foursquare.com/item/52fe3f2411d262c185ae9b80
+162	Torre del Reloj	6	9.09999999999999964	10.422980474488789	-75.54912954568863	Centro	\N	\N	https://foursquare.com/item/52fe3f2411d262c185ae9b80
+163	EL BARÓN - Café & Liquor Bar	6	9.09999999999999964	10.422007069472345	-75.55076569318771	Carrera 4 No. 31-7 (Plaza de San Pedro Claver)	\N	\N	https://foursquare.com/item/532e075b498e3c6c3433fbfa
 164	Shakin' Milkshake and Smoothie Bar	6	9	10.4090232370618	-75.55175898489095	Carrera 1 # 11-28	\N	\N	https://foursquare.com/item/581513c4d67cfccd58ec4ff5
-165	Laguito, Cartagena	6	9	10.396431841011132	-75.56307291268057	Barrio El Laguito	\N	\N	https://foursquare.com/item/508c1f1de4b0ca23f60b0188
-166	Cuzco Cocina Peruana	6	9	10.423614033635145	-75.55203757942854	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/50e74077e4b0ecb01f4e985f
-167	Plaza De La Trinidad	6	9	10.420694702351229	-75.54540802444272	Barrio Getsemani	\N	\N	https://foursquare.com/item/534890e2498e2d9ce524f3ad
-168	Plaza Santo Domingo	6	9	10.42423576652723	-75.55199778024097	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/4e63dfc61495676d565c91c6
+165	Cuzco Cocina Peruana	6	9	10.423614033635145	-75.55203757942854	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/50e74077e4b0ecb01f4e985f
+166	Laguito, Cartagena	6	9	10.396431841011132	-75.56307291268057	Barrio El Laguito	\N	\N	https://foursquare.com/item/508c1f1de4b0ca23f60b0188
+167	Plaza Santo Domingo	6	9	10.42423576652723	-75.55199778024097	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/4e63dfc61495676d565c91c6
+168	Plaza De La Trinidad	6	9	10.420694702351229	-75.54540802444272	Barrio Getsemani	\N	\N	https://foursquare.com/item/534890e2498e2d9ce524f3ad
 169	Tratoria Cebichería Wippy	6	9	10.423927505591314	-75.55203189383096	Calle Santo Domingo 33-81 (Plaza Santo Domingo)	\N	\N	https://foursquare.com/item/55220605498ee59418e43cfe
-170	Isla de Baru	6	8.90000000000000036	10.218259957385426	-75.61172428685471	Isla Baru	\N	\N	https://foursquare.com/item/51c6615b498ebd0759066501
-171	San Alberto	6	8.90000000000000036	10.42399619746591	-75.55104828216619	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/55d341cb498e5655beb23a4f
-172	Abaco	6	8.90000000000000036	10.424964905265005	-75.55121316550216	Calle De La Iglesia Con Calle De La Mantilla Esquina (3-86)	\N	\N	https://foursquare.com/item/4d1a43c2bb488cfa4afec3d4
+170	San Alberto	6	8.90000000000000036	10.42399619746591	-75.55104828216619	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/55d341cb498e5655beb23a4f
+171	Abaco	6	8.90000000000000036	10.424964905265005	-75.55121316550216	Calle De La Iglesia Con Calle De La Mantilla Esquina (3-86)	\N	\N	https://foursquare.com/item/4d1a43c2bb488cfa4afec3d4
+172	Isla de Baru	6	8.90000000000000036	10.218259957385426	-75.61172428685471	Isla Baru	\N	\N	https://foursquare.com/item/51c6615b498ebd0759066501
 173	Gelateria Paradiso	6	8.90000000000000036	10.42517371142022	-75.55059343063253	Calle de las Estrellas (Calle 36) (at Calle del Cuartel (Carrera 5))	\N	\N	https://foursquare.com/item/50aec12ae4b03ce490a3fc35
 174	Mila Pasteleria	6	8.90000000000000036	10.424986932021659	-75.55109376724273	Calle de la iglesia # 35 - 76	\N	\N	https://foursquare.com/item/507b6922e4b0772057ac8066
 175	Gokela - Cartagena	6	8.80000000000000071	10.403076507329313	-75.55444836616516	Carerra 3 (No 7-157)	\N	\N	https://foursquare.com/item/51632b20e4b06c51d43bbf57
 176	alquimico	6	8.80000000000000071	10.42371	-75.549685	Colombia	\N	\N	https://foursquare.com/item/5875968504ab1a1578d7625d
-177	Teatro Adolfo Mejía	6	8.80000000000000071	10.426713151161056	-75.55127263069153	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/4fef5432e4b0ac0d2f481395
-178	El Coro Lounge	6	8.80000000000000071	10.428084865621027	-75.54810762405396	Centro Historico, Calle Stuart	\N	\N	https://foursquare.com/item/521e915a11d21ac519058a12
-179	Plaza De Bolívar	6	8.80000000000000071	10.423287401193594	-75.55115062356874	Cll 33 3 1-99	\N	\N	https://foursquare.com/item/4f5615a4e4b06e95a3d22874
-180	Teatro Pedro De Heredia	6	8.80000000000000071	10.42663019149386	-75.55112219540847	Centro	\N	\N	https://foursquare.com/item/550e63c6498e1815cf1f8052
+177	Bohemia Cocina En Evolución	6	8.80000000000000071	10.423584053700052	-75.55235597254396	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/563bdccbcd10d54e891af465
+178	Teatro Pedro De Heredia	6	8.80000000000000071	10.42663019149386	-75.55112219540847	Centro	\N	\N	https://foursquare.com/item/550e63c6498e1815cf1f8052
+179	Teatro Adolfo Mejía	6	8.80000000000000071	10.426713151161056	-75.55127263069153	Cartagena de Indias, Bolívar	\N	\N	https://foursquare.com/item/4fef5432e4b0ac0d2f481395
+180	Plaza De Bolívar	6	8.80000000000000071	10.423287401193594	-75.55115062356874	Cll 33 3 1-99	\N	\N	https://foursquare.com/item/4f5615a4e4b06e95a3d22874
 \.
 
 
@@ -1108,26 +1106,26 @@ COPY tags (tag_id, tag_name) FROM stdin;
 3	Multiplex
 4	Theme Park Ride / Attraction
 5	Non-Profit
-6	Art Gallery
-7	Café
-8	Mountain
+6	Mountain
+7	Art Gallery
+8	Café
 9	Thai Restaurant
 10	Zoo
 11	Theme Park
 12	Scenic Lookout
 13	Park
 14	Dumpling Restaurant
-15	Coffee Shop
+15	Reservoir
 16	Japanese Restaurant
-17	Monument / Landmark
-18	Yoga Studio
-19	Taiwanese Restaurant
-20	Club House
+17	Yoga Studio
+18	Coffee Shop
+19	Monument / Landmark
+20	Taiwanese Restaurant
 21	Wine Bar
 22	Harbor / Marina
-23	Greek Restaurant
-24	Bookstore
-25	Botanical Garden
+23	Botanical Garden
+24	Greek Restaurant
+25	Bookstore
 26	Hotel
 27	Theater
 28	Beach
@@ -1136,46 +1134,46 @@ COPY tags (tag_id, tag_name) FROM stdin;
 31	Ice Cream Shop
 32	Spanish Restaurant
 33	Cosmetics Shop
-34	Accessories Store
-35	Reservoir
+34	Hotel Pool
+35	Accessories Store
 36	Climbing Gym
 37	Art Museum
 38	Clothing Store
-39	Scandinavian Restaurant
-40	City Hall
-41	History Museum
+39	City Hall
+40	History Museum
+41	Scandinavian Restaurant
 42	French Restaurant
 43	Nature Preserve
 44	Asian Restaurant
 45	Pizza Place
 46	Pub
-47	Middle Eastern Restaurant
-48	Arts & Crafts Store
-49	Cheese Shop
-50	Steakhouse
+47	Design Studio
+48	Cheese Shop
+49	Middle Eastern Restaurant
+50	Arts & Crafts Store
 51	Spa
 52	Gym / Fitness Center
 53	Track
 54	Library
-55	Martial Arts Dojo
-56	Performing Arts Venue
-57	Church
-58	Bakery
+55	Performing Arts Venue
+56	Church
+57	Bakery
+58	Martial Arts Dojo
 59	Bridge
-60	Farmers Market
-61	Lake
-62	Italian Restaurant
-63	Fountain
-64	Concert Hall
-65	Market
-66	Indian Restaurant
+60	Lake
+61	Farmers Market
+62	Fountain
+63	Concert Hall
+64	Market
+65	Indian Restaurant
+66	Street Food Gathering
 67	Event Space
-68	Street Food Gathering
-69	Record Shop
-70	Seafood Restaurant
-71	Latin American Restaurant
-72	Hotel Bar
-73	Historic Site
+68	Record Shop
+69	Seafood Restaurant
+70	Latin American Restaurant
+71	Hotel Bar
+72	Historic Site
+73	Italian Restaurant
 74	Restaurant
 75	Caribbean Restaurant
 76	Bar
@@ -1183,7 +1181,6 @@ COPY tags (tag_id, tag_name) FROM stdin;
 78	Plaza
 79	Sandwich Place
 80	Nightclub
-81	Lounge
 \.
 
 
@@ -1191,7 +1188,7 @@ COPY tags (tag_id, tag_name) FROM stdin;
 -- Name: tags_tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
 --
 
-SELECT pg_catalog.setval('tags_tag_id_seq', 81, true);
+SELECT pg_catalog.setval('tags_tag_id_seq', 80, true);
 
 
 --
@@ -1199,17 +1196,16 @@ SELECT pg_catalog.setval('tags_tag_id_seq', 81, true);
 --
 
 COPY users (user_id, name, lastname, city_id, email, password, is_activated, picture) FROM stdin;
-1	Kenneth	Allen	1	kallen0@slashdot.org	DlmIEn8	f	\N
-2	Annie	Mason	2	amason1@bravesites.com	lJ6unx	t	\N
-3	Joe	Lawrence	3	jlawrence2@ezinearticles.com	YWzHDz0RHE	t	\N
-4	Adam	Burns	3	aburns3@hugedomains.com	10f5gAUPq	f	\N
-5	Paula	Cooper	1	pcooper4@fotki.com	KP3Ufx	t	\N
-6	Kelly	Schmidt	5	kschmidt5@nytimes.com	KMGbVwHT3	f	\N
-7	Brenda	Wheeler	5	bwheeler6@purevolume.com	0hrowGKucWy	t	\N
-8	Shawn	Kennedy	5	skennedy7@dyndns.org	zPbHSYvuVD	t	\N
-9	Barbara	Sanders	6	bsanders8@house.gov	fvb6zBWAk	t	\N
-10	Jose	Ross	2	jross9@seesaa.net	5hDLzheMQ	f	\N
-11	Stephanie	Boyette	7	sjboyette@gmail.com	1234	f	\N
+1	Kenneth	Allen	1	kallen0@slashdot.org	$argon2i$v=19$m=512,t=2,p=2$v3dOKeXc23tPSakVAkAIIQ$2WNKWqwfRgfp4/clCFXogg	f	\N
+2	Annie	Mason	2	amason1@bravesites.com	$argon2i$v=19$m=512,t=2,p=2$uBciRKjV2jtnDMF4j1EKYQ$LPkH6QIz5xNyyFlUyaigCQ	f	\N
+3	Joe	Lawrence	3	jlawrence2@ezinearticles.com	$argon2i$v=19$m=512,t=2,p=2$Pkfo3ftfS2nt/d87Z+w9hw$lBV/GKiQmBBp2K11NCLNHg	f	\N
+4	Adam	Burns	3	aburns3@hugedomains.com	$argon2i$v=19$m=512,t=2,p=2$Oee89z6HEOKcUwoBYKwVog$r/O3jLmvOAtcEH8O3wKKhw	t	\N
+5	Paula	Cooper	1	pcooper4@fotki.com	$argon2i$v=19$m=512,t=2,p=2$iXHuXSsFoBSCUOp9j9Ga8w$nypVNhPdgSXULdxoByN6+g	t	\N
+6	Kelly	Schmidt	5	kschmidt5@nytimes.com	$argon2i$v=19$m=512,t=2,p=2$gBBi7F0Lwdj7H2OMEeL8/w$TlMbrCWBruNnLLVeJjgfGw	t	\N
+7	Brenda	Wheeler	5	bwheeler6@purevolume.com	$argon2i$v=19$m=512,t=2,p=2$B4AwxthbCyEEoPQeY8y59w$1HWeUG1PaDsoyq4hCnqC0Q	t	\N
+8	Shawn	Kennedy	5	skennedy7@dyndns.org	$argon2i$v=19$m=512,t=2,p=2$FEJIaU0J4XyPsda6d+7dew$9DzpRlfHEAXcjW3NIhxAEg	t	\N
+9	Barbara	Sanders	6	bsanders8@house.gov	$argon2i$v=19$m=512,t=2,p=2$4BwjBEDovfeecw4B4HxvbQ$+n41ZuZ0Sb/huK6q+x6o6Q	t	\N
+10	Jose	Ross	2	jross9@seesaa.net	$argon2i$v=19$m=512,t=2,p=2$H8OYUwohpNR6D6HU+j/HGA$YgpVkZezMeB9KIaay4Cucw	f	\N
 \.
 
 
@@ -1217,7 +1213,7 @@ COPY users (user_id, name, lastname, city_id, email, password, is_activated, pic
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: vagrant
 --
 
-SELECT pg_catalog.setval('users_user_id_seq', 11, true);
+SELECT pg_catalog.setval('users_user_id_seq', 10, true);
 
 
 --

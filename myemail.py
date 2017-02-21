@@ -8,7 +8,7 @@ def send_email(receiver, activation_number):
     receiver_email = receiver
     sender_email = 'onecity@darkboli.net'
     sender_pwd = my_pass
-    activation_link = "http://localhost:5001/activation/" + str(activation_number)
+    activation_link = "http://localhost:5000/activation/" + str(activation_number)
 
     smtpserver = smtplib.SMTP('darkboli.net', 587) #not self hosted.
 

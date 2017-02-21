@@ -11,3 +11,7 @@ wsgiref==0.1.2
 psycopg2
 
 foursquare
+
+pycipher==0.5.2
+argon2_cffi
+passlib

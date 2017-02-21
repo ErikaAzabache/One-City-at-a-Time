@@ -8,7 +8,8 @@ from models import Country, City, User, Place, Actiontype, Action, Tag, PlaceTag
 from seed_test import search_country_code, country_code_dict
 import json
 from myemail import send_email
-from random import randint, choice 
+from random import randint, choice
+from passlib.hash import argon2 
 
 
 app = Flask(__name__)
@@ -135,8 +136,8 @@ def register_process():
     lastname = request.form["lastname"].title()
     country = request.form["sel-country"].title()
     city = request.form["city"].title() #calculate city_id
-    email = request.form["email"] #needed to login. Unique
-    password = request.form["password"] #needed to login
+    email = request.form["email"] #Unique
+    password = argon2.hash(request.form["password"]) #hashed password
 
     #already registered?
     user_in_db = db.session.query(User).filter(User.email==email).first()
@@ -215,7 +216,7 @@ def login_process():
     """Process login."""
 
     email = request.form["email"]
-    password = request.form["password"]
+    attempt = request.form["password"]
 
     user = User.query.filter(User.email==email).first()
 
@@ -223,7 +224,7 @@ def login_process():
         flash("Wrong email. Please try again or register.")
         return redirect("/login")
 
-    elif user.password != password:
+    elif not argon2.verify(attempt, user.password): #user.password is actually the hashed password
         flash("Incorrect password. Please try again.")
         return redirect("/login")
 
@@ -273,4 +274,4 @@ if __name__ == "__main__":
 
     DebugToolbarExtension(app)
 
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5000)
