@@ -160,14 +160,32 @@ def register_process():
         db.session.add(new_user)
         db.session.commit()
 
-        flash("%s %s, your registration was completed. Please, check your email to activate your account" % (name, lastname))
+        # flash("%s %s, your registration was completed. Please, check your email to activate your account" % (name, lastname))
 
-        activation_number = randint(10**8, 10**10)
+        activation_number = randint(10**8, 10**12)
         new_activation = Activation(activation_number=activation_number, user_id=new_user.user_id)
         db.session.add(new_activation)
         db.session.commit()
         send_email(email, activation_number)
-        return redirect("/login")
+        #return redirect("/login")
+        return redirect("/activation_confirmation/%s" % new_user.user_id)
+
+
+@app.route('/activation_confirmation/<int:user_id>', methods=['GET'])
+def activation_confirmation(user_id):
+    """Shows confirmation message."""
+
+    return render_template("activation_confirmation.html", user_id=user_id)
+
+
+@app.route('/activation_confirmation/<int:user_id>', methods=['POST'])
+def activation_resend(user_id):
+    """Allows to send the email again if not received."""
+
+    activation_number = db.session.query(Activation).filter(Activation.user_id==user_id).first().activation_number
+    email = db.session.query(User).get(user_id).email
+    send_email(email, activation_number)
+    return redirect("/login")
 
 
 @app.route('/activation/<activation_number>')
