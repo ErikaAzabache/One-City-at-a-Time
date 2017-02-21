@@ -3,7 +3,7 @@ import sys
 import foursquare
 import pprint 
 import pickle
-from models import connect_to_db, db, Country, City, Place, User, Tag, PlaceTag, Action, Actiontype
+from models import connect_to_db, db, Country, City, Place, User, Tag, PlaceTag, Action, Actiontype, Activation
 from random import randint, choice
 import csv
 
@@ -102,6 +102,7 @@ def load_places():
 def load_users():
     """Users generated from online mock data"""
 
+    is_activated_list = [True, False]
     signup_file = open('seed_data/signup.csv')
 
     for line in signup_file:
@@ -115,8 +116,9 @@ def load_users():
             db.session.commit()
 
         city_id = db.session.query(City).filter(City.name==city).first().city_id
+        is_activated = choice(is_activated_list)
 
-        user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password)
+        user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, is_activated=is_activated)
         db.session.add(user)
     db.session.commit()
 
@@ -146,6 +148,16 @@ def load_actions():
             db.session.add(action)
     db.session.commit()
 
+def load_activations():
+    """Records of activation numbers by users"""
+    for i in range(1,1001): #load_users() loads 10 users
+        activation_number = randint(10**8, 10**12)
+        user_id = i
+
+        activation = Activation(activation_number=activation_number, user_id=user_id)
+        db.session.add(activation)
+    db.session.commit()
+
 
 if __name__ == "__main__":
     #connect_to_db(app)
@@ -163,3 +175,4 @@ if __name__ == "__main__":
     load_users()
     load_actiontypes()
     load_actions()
+    load_activations()

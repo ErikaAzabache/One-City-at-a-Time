@@ -61,6 +61,7 @@ class User(db.Model):
     city_id = db.Column(db.Integer, db.ForeignKey('cities.city_id'))
     email = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(20), nullable=False)
+    is_activated = db.Column(db.Boolean, default=False)
     picture = db.Column(db.String(200)) #url IF I can add profile pics in 2nd sprint
 
     # Define relationship to City
@@ -157,9 +158,6 @@ class PlaceTag(db.Model):
     place_id = db.Column(db.Integer, db.ForeignKey('places.place_id'), nullable=False)
     tag_id = db.Column(db.Integer, db.ForeignKey('tags.tag_id'), nullable=False)
 
-    #relationship
-    #tags = db.relationship("Tag", backref="placetags")
-    #place = 
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -167,6 +165,20 @@ class PlaceTag(db.Model):
         return "<PlaceTag place_tag_id=%s place_id=%s tag_id=%s>" % (self.place_tag_id, self.place_id, self.tag_id)
 
 
+class Activation(db.Model):
+    """Table with activation numbers"""
+
+    __tablename__ = "activations"
+
+    activation_number = db.Column(db.BigInteger, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+
+    user = db.relationship("User", backref="activations")
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Activation activation_number=%s user_id=%s>" % (self.activation_number, self.user_id)
 
 ##############################################################################
 # Helper functions

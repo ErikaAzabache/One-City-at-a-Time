@@ -4,9 +4,11 @@ from flask import Flask, render_template, request, flash, redirect, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import connect_to_db, db
-from models import Country, City, User, Place, Actiontype, Action, Tag, PlaceTag
+from models import Country, City, User, Place, Actiontype, Action, Tag, PlaceTag, Activation
 from seed_test import search_country_code, country_code_dict
 import json
+from myemail import send_email
+from random import randint, choice 
 
 
 app = Flask(__name__)
@@ -43,10 +45,6 @@ def search_results():
             return redirect("/")
         else:
             return render_template("search_results.html", places=places, city=city_search)
-            # places_info = [{'name':place.name, 'city_id':place.city_id} for place in places]
-
-            # return jsonify(places_info)
-            # return render_template("search_results.html")
 
 
 @app.route('/search.json', methods=['GET'])
@@ -157,15 +155,36 @@ def register_process():
 
         city_id = db.session.query(City).filter(City.name==city).first().city_id
 
-        new_user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password)
+        new_user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password) #already false
 
         db.session.add(new_user)
         db.session.commit()
 
-        flash("%s %s, your registration was completed." % (name, lastname))
+        flash("%s %s, your registration was completed. Please, check your email to activate your account" % (name, lastname))
+
+        activation_number = randint(10**8, 10**10)
+        new_activation = Activation(activation_number=activation_number, user_id=new_user.user_id)
+        db.session.add(new_activation)
+        db.session.commit()
+        send_email(email, activation_number)
         return redirect("/login")
 
 
+@app.route('/activation/<activation_number>')
+def activation_process(activation_number):
+
+    number_in_db = db.session.query(Activation).get(activation_number)
+
+    if (number_in_db) and (not number_in_db.user.is_activated):
+        user_id = number_in_db.user_id
+        user = db.session.query(User).get(user_id)
+        user.is_activated = True
+        db.session.commit()
+        return redirect("/login")
+    else:
+        return render_template("activation_error.html")
+
+    
 @app.route('/login', methods=['GET'])
 def login_form():
     """Show login form."""
@@ -187,9 +206,12 @@ def login_process():
         return redirect("/login")
 
     elif user.password != password:
-        flash("Incorrect password. Please try again")
+        flash("Incorrect password. Please try again.")
         return redirect("/login")
 
+    elif not user.is_activated:
+        flash("Please activate your account.")
+        return redirect("/login")
     else:
         session["user_id"] = user.user_id
         flash("Successfully logged in")
