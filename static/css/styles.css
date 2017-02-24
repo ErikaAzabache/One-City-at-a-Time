@@ -1,3 +1,11 @@
+.profile-info { 
+  float:left; 
+}
+
+.profile-pic { 
+  float:right; 
+}
+
 .filters { 
   float:right; 
   margin-left: 5px;}

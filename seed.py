@@ -105,6 +105,7 @@ def load_users():
 
     is_activated_list = [True, False]
     signup_file = open('seed_data/signup.csv')
+    profile_pic = "http://i.imgur.com/Jckb780t.jpeg"
 
     for line in signup_file:
         name, lastname, email, password, country, city = line.rstrip().split(',')
@@ -120,7 +121,7 @@ def load_users():
         is_activated = choice(is_activated_list)
         password = argon2.hash(password)
         
-        user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, is_activated=is_activated)
+        user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, is_activated=is_activated, picture=profile_pic)
         db.session.add(user)
     db.session.commit()
 

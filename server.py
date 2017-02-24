@@ -7,12 +7,22 @@ from models import connect_to_db, db
 from models import Country, City, User, Place, Actiontype, Action, Tag, PlaceTag, Activation
 from seed_test import search_country_code, country_code_dict
 import json
+
 from myemail import send_email
 from random import randint, choice
-from passlib.hash import argon2 
+
+from passlib.hash import argon2
+
+from werkzeug import secure_filename
+import requests
+import os 
 
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = '/uploads'
+app.config['ALLOWED_EXTENSIONS'] = set(['png', 'jpg', 'jpeg'])
+imgur_client_id = os.environ['IMGUR_CLIENT_ID']
+imgur_secret = os.environ['IMGUR_CLIENT_SECRET']
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "SOSECRET"
@@ -138,6 +148,7 @@ def register_process():
     city = request.form["city"].title() #calculate city_id
     email = request.form["email"] #Unique
     password = argon2.hash(request.form["password"]) #hashed password
+    picture = "http://i.imgur.com/Jckb780t.jpeg" #default
 
     #already registered?
     user_in_db = db.session.query(User).filter(User.email==email).first()
@@ -156,7 +167,7 @@ def register_process():
 
         city_id = db.session.query(City).filter(City.name==city).first().city_id
 
-        new_user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password) #already false
+        new_user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, picture=picture) #already false
 
         db.session.add(new_user)
         db.session.commit()
@@ -186,6 +197,7 @@ def activation_resend(user_id):
     activation_number = db.session.query(Activation).filter(Activation.user_id==user_id).first().activation_number
     email = db.session.query(User).get(user_id).email
     send_email(email, activation_number)
+    flash("Your account has been successfully activated.")
     return redirect("/login")
 
 
@@ -254,6 +266,48 @@ def profile(user_id):
     user = db.session.query(User).get(user_id)
     return render_template("user.html", user=user)
 
+
+@app.route('/save_picture.json', methods=['POST'])
+def upload():
+    """Saving user's profile picture ID in database. 
+    ID of picture uploaded on Imgur is provided by Imgur's API."""
+
+    picture_id = request.form.get('pic_id')
+    ext = request.form.get('extension')
+    user_id = session.get("user_id")   
+    
+    base = "http://i.imgur.com/"
+    pic_id = picture_id
+    size = 't'
+    link = base + pic_id + size + '.' + ext
+
+    user = db.session.query(User).get(user_id)
+    user.picture = link
+    db.session.commit()
+
+    return jsonify({"pic_url":link})
+
+# @app.route('/download', methods=['GET'])
+# def download():
+#     """Getting user's profile picture ID from database using Imgur's API."""
+
+#     headers = {"Authorization": "Client-ID " + imgur_client_id}
+#     pic_id = 'a0YpdAq'
+#     url = "https://api.imgur.com/3/image/" + pic_id
+
+#     j1 = requests.get(url, headers=headers)
+
+#     pic_id = json.loads(j1.text)["data"]["id"]
+    
+    #j1.text = {"data":{"id":"a0YpdAq","title":"Picture of Boli","description":null,"datetime":1487808672,"type":"image\/jpeg","animated":false,"width":768,"height":1024,"size":226297,"views":0,"bandwidth":0,"vote":null,"favorite":false,"nsfw":false,"section":null,"account_url":null,"account_id":null,"is_ad":false,"tags":[],"in_gallery":false,"link":"http:\/\/i.imgur.com\/a0YpdAq.jpg"},"success":true,"status":200}
+
+    # Suffix  Name    Size
+    # s       Small   90x90
+    # b       Big     160x160
+    # t       Small   160x160
+    # m       Medium  320x320
+    # l       Large   640x640
+    # h       Huge    1024x1024
 
 
 @app.route("/places/<int:place_id>", methods=['GET'])
