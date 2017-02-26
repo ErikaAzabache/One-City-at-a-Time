@@ -55,7 +55,17 @@ def search_results():
             flash("We couldn't find %s. Please choose another city." % (city_search))
             return redirect("/")
         else:
-            return render_template("search_results.html", places=places, city=city_search)
+            user_id = session.get("user_id")
+            if user_id:
+                saved = db.session.query(Action).filter(Action.user_id==user_id, Action.action_code=='sav').all()
+                user_sav = [an_obj.place_id for an_obj in saved]
+                marked = db.session.query(Action).filter(Action.user_id==user_id, Action.action_code=='hbh').all()
+                user_hbh = [an_obj.place_id for an_obj in marked]
+            else:
+                user_sav = []
+                user_hbh = []
+
+            return render_template("search_results.html", places=places, city=city_search, user_sav=user_sav, user_hbh=user_hbh)
 
 
 @app.route('/search.json', methods=['GET'])
@@ -74,7 +84,6 @@ def search_results_json():
         return jsonify(None) #choose another city please
     else: #if in city database
         city_id = db.session.query(City).filter(City.name==city_search).first().city_id
-
         places = db.session.query(Place).filter(Place.city_id==city_id).all() #DEFAULT
        
         if sort_type == "sort-name":
@@ -87,6 +96,9 @@ def search_results_json():
         if not places:
             return jsonify(None) #choose another city
         else:
+            user_id = session.get("user_id")
+            print "WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            print user_id
             return jsonify([{'name': place.name,
                             'address': place.address, 
                             'place_id': place.place_id, 
@@ -96,8 +108,8 @@ def search_results_json():
                             'longitud': place.longitud, 
                             'city_id': place.city_id, 
                             'city_lat': place.city.latitud, 
-                            'city_long': place.city.longitud} for place in places])
-
+                            'city_long': place.city.longitud,
+                            "place_actions": [an_action.action_code for an_action in place.actions if an_action.user_id==user_id]} for place in places])
 
 @app.route('/add-action', methods=['POST'])
 def add_actions():
@@ -109,23 +121,20 @@ def add_actions():
 
     if not user_id:
         flash("Please login.") #WHERE AM I flashing exactly?
-        #return "Hey girl...login for me please" #have to return something or ajax will fail
-        return jsonify({"result_code": "login"})
-    #one or none
+        return jsonify({"result_code": "login", "action_type": action_type, "place_id": place_id})
+    
     action_in_db = db.session.query(Action).filter(Action.user_id==user_id, Action.place_id==place_id, Action.action_code==action_type).first()
     if action_in_db:
         db.session.query(Action).filter(Action.action_id==action_in_db.action_id).delete()
         db.session.commit()
-        #return "Hey girl...you already did that so undoing it." #have to return something or ajax will fail
-        return jsonify({"result_code": "undo"})
-    #Else, add new_action:
+        return jsonify({"result_code": "undo", "action_type": action_type, "place_id": place_id})
+    
     new_action = Action(user_id=user_id, place_id=place_id, action_code=action_type)
     db.session.add(new_action)
     db.session.commit()
 
     #this will tell JS to change the color of the button
-    #return "It's all good. Love, your server"
-    return jsonify({"result_code": "added"})
+    return jsonify({"result_code": "added", "action_type": action_type, "place_id": place_id})
 
 
 @app.route('/register', methods=['GET'])
@@ -167,7 +176,7 @@ def register_process():
 
         city_id = db.session.query(City).filter(City.name==city).first().city_id
 
-        new_user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, picture=picture) #already false
+        new_user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, picture=picture) #is_activaded false
 
         db.session.add(new_user)
         db.session.commit()
@@ -236,11 +245,11 @@ def login_process():
         flash("Wrong email. Please try again or register.")
         return redirect("/login")
 
-    elif not argon2.verify(attempt, user.password): #user.password is actually the hashed password
+    if not argon2.verify(attempt, user.password): #user.password is actually the hashed password
         flash("Incorrect password. Please try again.")
         return redirect("/login")
 
-    elif not user.is_activated:
+    if not user.is_activated:
         flash("Please activate your account.")
         return redirect("/login")
     else:

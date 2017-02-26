@@ -1,8 +1,8 @@
-.profile-info { 
+#profile-info { 
   float:left; 
 }
 
-.profile-pic { 
+#profile-pic { 
   float:right; 
 }
 

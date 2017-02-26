@@ -1,21 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 <span>
-  <div id="profile-info">
-    <h2>{{ user.name }} {{ user.lastname }}</h2><br>
+  <div id="profile-pic">    
+    <form enctype="multipart/form-data">
+      <img src="{{user.picture}}" alt="Your profile picture" id="preview"><br>
+      <div id="update-pic" hidden>
+        <input id="user-photo" type="file" name="file">    
+        <input type="button" id="upload-pic" value="Upload">
+    </div>
+    </form>
+  </div>
 
-  <!--   <b><p>Email: {{ user.email }}</p></b><br> -->
-    <p>City: {{ user.city.name }}</p>
-    <p>Country: {{ user.city.country.name }}</p>
-  <!-- user.actions returns the MANY possible sav/hbh the user could have done -->
+  <div id="profile-info">
+    <span>
+      <h2>{{ user.name }} {{ user.lastname }}</h2>
+      <input type="button" id="edit-profile" value="Edit">
+    </span>
+
+    <h6>City: {{ user.city.name }}</h6>
+    <h6>Country: {{ user.city.country.name }}</h6>
     {% if user.actions %}
       <h6> {{user.name}}'s saved places:</h6>
         <ul>
         {% for user_action in user.actions %}
           {% if user_action.action_code=='sav' %}
-            <li>
-              <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>
-            </li>
+            <div id="div-sav-{{ user_action.place.place_id }}">
+              <li>
+                <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>
+                <input type="button" id="user-sav-{{ user_action.place.place_id }}" class="delete-action" value="Delete" hidden>
+              </li>
+            </div>
           {% endif %}
         {% endfor %}
         </ul>
@@ -24,27 +38,18 @@
         <ul>
         {% for user_action in user.actions %}
           {% if user_action.action_code=='hbh' %}
-            <li>
-              <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>
-            </li>
+            <div id="div-hbh-{{ user_action.place.place_id }}">
+              <li>
+                <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>
+                <input type="button" id="user-hbh-{{ user_action.place.place_id }}" class="delete-action" value="Delete" hidden>
+              </li>
+            </div>
           {% endif %}
         {% endfor %}
         </ul>
     {% endif %}
   </div>
 
-  <div class="container" id="profile-pic">
-      <div class="header">
-        <h6 class="text-muted">Upload profile picture</h6>
-      </div>
-  </div>
-  <div>    
-    <form enctype="multipart/form-data">
-      <input id="user-photo" type="file" name="file"><br/><br/>
-      <input type="button" id="upload-pic" value="Upload">
-      <img src="{{user.picture}}" id="preview">
-    </form>
-  </div>
 </span>
 
 <script src="/static/js/user.js" type="text/javascript"></script>

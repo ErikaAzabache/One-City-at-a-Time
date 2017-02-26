@@ -2,16 +2,19 @@
 function showConfirmation(result) {
     console.log(result);
     if (result.result_code == "login"){
-        console.log(this.id);
         window.location.href = "/login";
     } else if (result.result_code == "added"){
-        $(this.id).addClass("selected");
-        console.log(this.id);
+        var  buttonClicked = result.action_type + "-" + result.place_id;
+        $("#"+buttonClicked).addClass("selected");
+
     } else{
-        $(this.id).removeClass("selected");
-        console.log(this.id);
+        var  buttonClicked = result.action_type + "-" + result.place_id;
+        $("#"+buttonClicked).removeClass("selected");
+
     }
 }
+
+"sav-{{ place.place_id }}"
 
 function updateActionTable(evt){
     evt.preventDefault();
@@ -21,9 +24,6 @@ function updateActionTable(evt){
         "action_type": this.classList[0],
         "place_id": this.id.slice(4)
     };
-
-    console.log("type: "+this.classList[0]);
-    console.log("placeid: "+this.id.slice(4));
 
     $.post("/add-action", 
            formInputs,
@@ -40,7 +40,6 @@ function showResults(resList){
     $("#place-results").remove();
     console.log("after removing the old results");
     if (!resList){
-        console.log("NO RESULTS FOUND");
         $('#results-list').append("<ul id='place-results'> <div id='data_goes_here'> No results found </div> </ul>");
     } else {
         $('#results-list').append("<ul id='place-results'> <div id='data_goes_here'> </div> </ul>");
@@ -48,11 +47,23 @@ function showResults(resList){
         var j;
         for (i = 0; i < resList.length; i++) {
             $('#data_goes_here').append("<li> <a href='/places/"+ resList[i].place_id + "'>" + resList[i].name + "</a> <div id='tag-div-" + resList[i].place_id + "'> Tag: </div> <div>Rating: " + resList[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + resList[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + resList[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
+            console.log(resList[i].place_actions)
+            if (jQuery.inArray("sav", resList[i].place_actions) > -1){
+                var buttonId = "sav-" + resList[i].place_id;
+                console.log(buttonId);
+                $("#"+buttonId).addClass("selected");
+            }
+            if (jQuery.inArray("hbh", resList[i].place_actions) > -1){
+                var buttonId = "hbh-" + resList[i].place_id;
+                console.log(buttonId);
+                $("#"+buttonId).addClass("selected");
+            }
             $('#tag-div-'+resList[i].place_id).append(resList[i].tags[0]);
         }
     }
     
 }
+
 
 function submitSearch(evt){
     evt.preventDefault();
