@@ -271,8 +271,24 @@ def profile(user_id):
     """Show user's profile"""
 
     user = db.session.query(User).get(user_id)
+
     return render_template("user.html", user=user)
 
+@app.route("/user_actions.json")
+def user_map():
+    """Grabs user actions to show in user's profile"""
+
+    user_id = session.get("user_id")
+    user_actions_obj = db.session.query(User).get(user_id).actions
+    
+    return jsonify([{'action_code' : an_action.action_code,
+                    'place_name' : an_action.place.name,
+                    'place_address' : an_action.place.address,
+                    'place_latitud' : an_action.place.latitud,
+                    'place_longitud' : an_action.place.longitud} for an_action in user_actions_obj])
+
+    # user_actions = [(an_action.place_id, an_action.action_code) for an_action in user.actions]
+    # return jsonify({"user_actions": user_actions})
 
 @app.route('/save_picture.json', methods=['POST'])
 def upload():
@@ -315,7 +331,6 @@ def upload():
     # m       Medium  320x320
     # l       Large   640x640
     # h       Huge    1024x1024
-
 
 @app.route("/places/<int:place_id>", methods=['GET'])
 def place_details(place_id):

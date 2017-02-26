@@ -27,6 +27,13 @@
   width: 500px;
   margin: 0px;
 }
+#user-map{
+  float: center;
+  height: 300px;
+  width: 800px;
+  margin: 0px;
+}
+
 #results-list{
   float: left;
 }
