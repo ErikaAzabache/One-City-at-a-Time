@@ -1,15 +1,10 @@
 var map;
 
 function feedMap(){
-  // evt.preventDefault();
-  console.log("FEEEEEEEED MAAAAAAAP");
-
   var formInputs = {
       "sort_type": "sort-default",
       "city_search": $("#hidden-span").html()
   };
-
-  console.log("city map: "+ $("#hidden-span").html());
 
   $.get('/search.json',
           formInputs,
@@ -34,12 +29,8 @@ function initMap(latitud, longitud) {
   
   function showMap(resList) { 
     if (!resList){
-      console.log(!(resList));
       $('#results-map').html("No map to show");
     } else {
-        // var cityLat = parseFloat(resList[0].city_lat);
-        // var cityLong = parseFloat(resList[0].city_long);
-        // initMap(cityLat, cityLong);
         var sum_lat = 0;
         var sum_long = 0;
 
@@ -57,15 +48,39 @@ function initMap(latitud, longitud) {
         var infoWindow = new google.maps.InfoWindow({
         width: 150
         });
+         
+        var sav_icon = {
+            url: '/static/js/icons/sav.png',
+            scaledSize: new google.maps.Size(40, 40), // 256 × 256
+            origin: new google.maps.Point(0, 0), 
+            anchor: new google.maps.Point(0, 0) 
+        };
+
+        var hbh_icon = {
+            url: '/static/js/icons/hbh.png',
+            scaledSize: new google.maps.Size(40, 40), // 256 × 256
+            origin: new google.maps.Point(0, 0), 
+            anchor: new google.maps.Point(0, 0) 
+        };
+
 
         for (i=0; i < resList.length; i++) {    
-          place = resList[i];
+          var place = resList[i];
+
+          var actionIcon;
+          if (jQuery.inArray("sav", resList[i].place_actions) > -1){
+            actionIcon = sav_icon;
+          } else if (jQuery.inArray("hbh", resList[i].place_actions) > -1){
+            actionIcon = hbh_icon;
+          } else {
+            actionIcon = '';
+          }
           // Define the marker
           marker = new google.maps.Marker({
               position: new google.maps.LatLng(parseFloat(place.latitud), parseFloat(place.longitud)),
               map: map,
               title: 'Name: ' + place.name,
-              icon: ''
+              icon: actionIcon
           });
 
           // Define the content of the infoWindow

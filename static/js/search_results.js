@@ -47,7 +47,6 @@ function showResults(resList){
         var j;
         for (i = 0; i < resList.length; i++) {
             $('#data_goes_here').append("<li> <a href='/places/"+ resList[i].place_id + "'>" + resList[i].name + "</a> <div id='tag-div-" + resList[i].place_id + "'> Tag: </div> <div>Rating: " + resList[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + resList[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + resList[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
-            console.log(resList[i].place_actions)
             if (jQuery.inArray("sav", resList[i].place_actions) > -1){
                 var buttonId = "sav-" + resList[i].place_id;
                 console.log(buttonId);

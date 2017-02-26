@@ -97,8 +97,6 @@ def search_results_json():
             return jsonify(None) #choose another city
         else:
             user_id = session.get("user_id")
-            print "WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-            print user_id
             return jsonify([{'name': place.name,
                             'address': place.address, 
                             'place_id': place.place_id, 
