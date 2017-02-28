@@ -278,8 +278,10 @@ def profile(user_id):
 def user_map():
     """Grabs user actions to show in user's profile"""
 
-    user_id = session.get("user_id")
-    user_actions_obj = db.session.query(User).get(user_id).actions
+    # user_id = session.get("user_id")
+    # if not user_id
+    user_id = request.args.get("user_profile")
+    user_actions_obj = db.session.query(User).get(int(user_id)).actions
     
     return jsonify([{'action_code' : an_action.action_code,
                     'place_name' : an_action.place.name,

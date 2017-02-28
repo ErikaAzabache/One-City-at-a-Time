@@ -2,7 +2,14 @@ var map;
 
 function getUserActions(){
 
+  var formInputs = {
+        "user_profile": $("#hidden-userid").html() 
+    };
+
+  console.log("Peeking profile of user: "+ $("#hidden-userid").html() );
+  
   $.get('/user_actions.json',
+          formInputs,
           showMap);
 }
 
