@@ -2,16 +2,17 @@
 {% block content %}
 <div>
   <h2 id="name">{{ place.name }}</h2><br>
+  <span id="hidden-placeid" hidden> {{ place.place_id }} </span>
 </div>
 
 <div>
-  <h4>Country: {{ place.city.country.name }}</h4><br>
-  <h4>City: {{ place.city.name }}</h4><br>
+  <h6>Country: {{ place.city.country.name }}</h6><br>
+  <h6>City: {{ place.city.name }}</h6><br>
 </div>
 
 <!-- user.actions returns the MANY possible sav/hbh the user could have done -->
 <div>
-    <h4>Description:</h4>
+    <h6>Description:</h6>
     <img id="placeImage" height="300px" />
 </div>
 <div>
@@ -19,9 +20,31 @@
 </div>
 
 <div>
-    <h4>Visit Foursquare for more information</h4>
+    <h6>Visit Foursquare for more information</h6>
     <a href="{{place.url_4s}}">{{ place.name }}</a>
+</div>
+<div>
+    <h4>Comments</h4>
+    {% if "user_id" in session %}
+    <div id="div-add-comment">
+        <textarea id= "text-review" name="add_review"></textarea>
+        <input type="button" id="add-comment-button" value="Add Comment">
+    </div>
+    {% endif %}
+    <ul>
+        <div id='div-all-comments'>
+        {% for comment in place.comments %}
+        <li>
+            <div id="div-comment-{{ comment.comment_id }}">
+                <a href="/users/{{ comment.user_id }}">{{ comment.user.name }} said</a>  
+                <h6>{{ comment.review }}</h6>    
+            </div>
+        </li> 
+        {% endfor %}
+        </div>
+    </ul>
 </div>
 
 <script src="/static/js/places.js" type="text/javascript"></script>
+<script src="/static/js/place.js" type="text/javascript"></script>
 {% endblock %}

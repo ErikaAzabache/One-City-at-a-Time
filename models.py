@@ -135,6 +135,25 @@ class Action(db.Model):
         return "<Action action_id=%s user_id =%s place_id=%s action_code=%s>" % (self.action_id, self.user_id, self.place_id, self.action_code)
 
 
+class Comment(db.Model):
+    """Middle table for User and Place"""
+
+    __tablename__ = "comments"
+
+    comment_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    place_id = db.Column(db.Integer, db.ForeignKey('places.place_id'), nullable=False)
+    review = db.Column(db.UnicodeText)
+
+    user = db.relationship("User", backref="comments")
+    place = db.relationship("Place", backref="comments")
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<Comment comment_id=%s user_id=%s place_id=%s>" % (self.comment_id, self.user_id, self.place_id)
+
+
 class Tag(db.Model):
     """Table with classification of places, for tags during search. For referential integrity"""
 

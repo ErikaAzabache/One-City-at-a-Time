@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, redirect, session, jso
 from flask_debugtoolbar import DebugToolbarExtension
 
 from models import connect_to_db, db
-from models import Country, City, User, Place, Actiontype, Action, Tag, PlaceTag, Activation
+from models import Country, City, User, Place, Actiontype, Action, Tag, PlaceTag, Activation, Comment
 from seed_test import search_country_code, country_code_dict
 import json
 
@@ -278,8 +278,6 @@ def profile(user_id):
 def user_map():
     """Grabs user actions to show in user's profile"""
 
-    # user_id = session.get("user_id")
-    # if not user_id
     user_id = request.args.get("user_profile")
     user_actions_obj = db.session.query(User).get(int(user_id)).actions
     
@@ -288,9 +286,6 @@ def user_map():
                     'place_address' : an_action.place.address,
                     'place_latitud' : an_action.place.latitud,
                     'place_longitud' : an_action.place.longitud} for an_action in user_actions_obj])
-
-    # user_actions = [(an_action.place_id, an_action.action_code) for an_action in user.actions]
-    # return jsonify({"user_actions": user_actions})
 
 @app.route('/save_picture.json', methods=['POST'])
 def upload():
@@ -341,6 +336,27 @@ def place_details(place_id):
     place = db.session.query(Place).get(place_id)
 
     return render_template("place.html", place=place)
+
+
+@app.route("/post_comment.json", methods=['POST'])
+def post_comment():
+    """Stores new comment in database"""
+
+    user_id = session.get("user_id")
+    place_id = request.form["place_id"]
+    review = request.form["reviewtext"]
+
+    new_comment = Comment(user_id=user_id, place_id=place_id, review=review)
+
+    db.session.add(new_comment)
+    db.session.commit()
+
+    comment_in_db = db.session.query(Comment).filter(Comment.user_id==user_id, Comment.place_id==place_id, Comment.review==review).first()
+
+    return jsonify({"user_id": user_id,
+                    "comment": review,
+                    "user_name": comment_in_db.user.name,
+                    "comment_id":comment_in_db.comment_id})
 
 
 

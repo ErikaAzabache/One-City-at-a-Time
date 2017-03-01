@@ -8,19 +8,3 @@
         }
     })
 }())
-
-// alert("You are in places");
-
-// function SearchNow(evt) {
-//     alert("You submitted");
-//     evt.preventDefault();
-//     var name = $("#city-search").val();
-
-//     console.log("Location: "+ name);
-
-//     if (name) {
-//         window.images.findRelevantImage(name);
-//     }
-// }
-
-// $("#search-button").on('click', SearchNow);
