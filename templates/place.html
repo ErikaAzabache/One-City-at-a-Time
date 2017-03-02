@@ -35,7 +35,10 @@
         <div id='div-all-comments'>
         {% for comment in place.comments %}
         <li>
-            <div id="div-comment-{{ comment.comment_id }}">
+            <div id="div-avatar-{{ comment.comment_id }}" class="avatar">
+                <img src="{{comment.user.picture}}" height="50" width="50">
+            </div>
+            <div id="div-comment-{{ comment.comment_id }}" class="comment">
                 <a href="/users/{{ comment.user_id }}">{{ comment.user.name }} said</a>  
                 <h6>{{ comment.review }}</h6>    
             </div>

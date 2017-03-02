@@ -429,6 +429,7 @@ def post_comment():
     comment_in_db = db.session.query(Comment).filter(Comment.user_id==user_id, Comment.place_id==place_id, Comment.review==review).first()
 
     return jsonify({"user_id": user_id,
+                    "avatar": comment_in_db.user.picture,
                     "comment": review,
                     "user_name": comment_in_db.user.name,
                     "comment_id":comment_in_db.comment_id})

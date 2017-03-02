@@ -1,14 +1,33 @@
-#profile-info { 
-  float:left; 
+#div-main-search{
+  text-align: center;
 }
 
-#profile-pic { 
-  float:right; 
+.profile_info{
+  width: 25%;
+  display: inline-block;
+}
+
+.map-container{
+  padding-top: 20px;
+}
+
+.user-profile-container{
+ padding: 20px; 
+}
+
+#user-info{
+display: inline-block;
 }
 
 .filters { 
   float:right; 
-  margin-left: 5px;}
+  margin-left: 5px;
+}
+
+#edit-profile{
+  margin-left: 30px;
+  display: inline-block;
+}
 
 .selected{
   background-color: #FF0000; /* Green */
@@ -19,7 +38,8 @@
 #main-search { 
   float:center;
   text-align: center; 
-  margin-left: 5px;}
+  margin-left: 5px;
+}
 
 #results-map{
   float: right;
@@ -28,10 +48,8 @@
   margin: 0px;
 }
 #user-map{
-  float: center;
-  height: 300px;
-  width: 800px;
-  margin: 0px;
+  height: 500px;
+  width: 500px;
 }
 
 #results-list{
@@ -66,12 +84,6 @@ p {
     font-size: 500%;
 }
 
-html, body {
-  width: 90%;
-  height: 90%;
-  margin: 0;
-  background-color: #ADD8E6;
-}
 
 #homepage-block {
   width: 100%;
@@ -85,7 +97,7 @@ html, body {
 #extending {
               margin: 0px;
               padding: 0px;
-              background-color: #ADD8E6;
+              /*background-color: #ADD8E6;*/
               width: 100%;
               height: 100%;
            }
