@@ -22,44 +22,53 @@
 
     <h6>City: {{ user.city.name }}</h6>
     <h6>Country: {{ user.city.country.name }}</h6>
-      <h6> {{user.name}}'s saved places:</h6>
-        {% if not user.actions%}
-        <div>
-              <h6 style="text-indent: 20px">No places to show</h6>
-        </div>
+    <h6>About me:</h6>
+    <div id="div-edit-description" hidden>
+        <textarea id= "text-description" name="edit_description" value="{{user.description}}"></textarea>
+        <input type="button" id="done-description-button" value="Done">
+    </div>
+    <div id="div-show-description">
+        <h6 id="db-text-description" style="text-indent: 20px">{{user.description}}</h6>
+        <input type="button" id="edit-description-button" value="Edit" hidden>
+    </div>
+    <h6> {{user.name}}'s saved places:</h6>
+      {% if not user.actions%}
+      <div>
+        <h6 style="text-indent: 20px">No places to show</h6>
+      </div>
+      {% endif %}
+      <ul>
+      {% for user_action in user.actions %}
+        {% if user_action.action_code=='sav' %}
+          <div id="div-sav-{{ user_action.place.place_id }}">
+            <li>
+              <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>  
+              <input type="button" id="user-sav-{{ user_action.place.place_id }}" class="delete-action" value="Delete" hidden>
+              
+            </li>
+          </div> 
         {% endif %}
-        <ul>
-        {% for user_action in user.actions %}
-          {% if user_action.action_code=='sav' %}
-            <div id="div-sav-{{ user_action.place.place_id }}">
-              <li>
-                <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>  
-                <input type="button" id="user-sav-{{ user_action.place.place_id }}" class="delete-action" value="Delete" hidden>
-                
-              </li>
-            </div> 
-          {% endif %}
-        {% endfor %}
-        </ul>
+      {% endfor %}
+      </ul>
 
-      <h6> Places {{user.name}} has been:</h6>
-        {% if not user.actions%}
-        <div>
-              <h6 style="text-indent: 20px">No places to show</h6>
-        </div>
+    <h6> Places {{user.name}} has been:</h6>
+      {% if not user.actions%}
+      <div>
+        <h6 style="text-indent: 20px">No places to show</h6>
+      </div>
+      {% endif %}
+      <ul>
+      {% for user_action in user.actions %}
+        {% if user_action.action_code=='hbh' %}
+          <div id="div-hbh-{{ user_action.place.place_id }}">
+            <li>
+              <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>
+              <input type="button" id="user-hbh-{{ user_action.place.place_id }}" class="delete-action" value="Delete" hidden>
+            </li>
+          </div> 
         {% endif %}
-        <ul>
-        {% for user_action in user.actions %}
-          {% if user_action.action_code=='hbh' %}
-            <div id="div-hbh-{{ user_action.place.place_id }}">
-              <li>
-                <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>
-                <input type="button" id="user-hbh-{{ user_action.place.place_id }}" class="delete-action" value="Delete" hidden>
-              </li>
-            </div> 
-          {% endif %}
-        {% endfor %}
-        </ul>
+      {% endfor %}
+      </ul>
   </div>
 
 </span>

@@ -44,10 +44,12 @@ function editDone(){
     if ($("#edit-profile").val()=='Edit'){
         $("#update-pic").removeAttr('hidden');
         $(".delete-action").removeAttr('hidden');
+        $("#edit-description-button").removeAttr('hidden');
         $('#edit-profile').attr('value','Done');
     } else{
         $("#update-pic").prop('hidden','hidden');
         $(".delete-action").prop('hidden','hidden');
+        $("#edit-description-button").prop('hidden','hidden');
         $('#edit-profile').attr('value','Edit');
     }
 }
@@ -71,7 +73,7 @@ function editActions() {
         "place_id": this.id.slice(9)
     };
 
-    $.post("/add-action", 
+    $.post("/add-action.json", 
            formInputs,
            hideRemovedActions
            );
@@ -79,3 +81,39 @@ function editActions() {
 
 $(document).on('click', '.delete-action', editActions);
 
+//-------------------Make description editable------------//
+function showEditDescription(){
+    $("#div-edit-description").removeAttr('hidden');
+    $("#div-show-description").prop('hidden', 'hidden');
+};
+
+$("#edit-description-button").on('click', showEditDescription);
+
+
+//------------------Submit edited profile---------------//
+function showDescription(result){
+    $("#div-edit-description").prop('hidden', 'hidden');
+    $("#div-show-description").removeAttr('hidden');
+    $("#text-description").val(result.description);
+    $("#db-text-description").html(result.description);
+}
+
+
+function storeDescription(){
+
+    console.log("description: "+ $("#text-description").val());
+    console.log("User id: " + $("#hidden-userid").html())
+    
+    var formInputs = {
+    "description": $("#text-description").val(),
+    "user_id": $("#hidden-userid").html()
+    };
+
+    $.post("/edit_profile", 
+           formInputs,
+           showDescription
+           );
+
+};
+
+$("#done-description-button").on('click', storeDescription);

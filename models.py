@@ -63,6 +63,7 @@ class User(db.Model):
     password = db.Column(db.Text, nullable=False)
     is_activated = db.Column(db.Boolean, default=False)
     picture = db.Column(db.String(200)) #url IF I can add profile pics in 2nd sprint
+    description = db.Column(db.Text)
 
     # Define relationship to City
     city = db.relationship("City", backref="users")

@@ -109,7 +109,7 @@ def search_results_json():
                             'city_long': place.city.longitud,
                             "place_actions": [an_action.action_code for an_action in place.actions if an_action.user_id==user_id]} for place in places])
 
-@app.route('/add-action', methods=['POST'])
+@app.route('/add-action.json', methods=['POST'])
 def add_actions():
     """Adds actions to the database and returns an OK to indicate that the button should change."""
 
@@ -185,7 +185,7 @@ def register_process():
         new_activation = Activation(activation_number=activation_number, user_id=new_user.user_id)
         db.session.add(new_activation)
         db.session.commit()
-        send_email(email, activation_number)
+        send_email(email, activation_number, 'activation')
         #return redirect("/login")
         return redirect("/activation_confirmation/%s" % new_user.user_id)
 
@@ -203,7 +203,7 @@ def activation_resend(user_id):
 
     activation_number = db.session.query(Activation).filter(Activation.user_id==user_id).first().activation_number
     email = db.session.query(User).get(user_id).email
-    send_email(email, activation_number)
+    send_email(email, activation_number, 'activation')
     flash("Your account has been successfully activated.")
     return redirect("/login")
 
@@ -219,8 +219,69 @@ def activation_process(activation_number):
         user.is_activated = True
         db.session.commit()
         return redirect("/login")
-    else:
-        return render_template("activation_error.html")
+   
+    return render_template("activation_error.html")
+
+
+@app.route('/forgot_password', methods=['GET'])
+def forgot_form():
+    """Shows forgot password form"""
+
+    return render_template("forgot_password.html")
+
+
+@app.route('/forgot_password', methods=['POST'])
+def forgot_process():
+    """Sends email to reset password after submit"""
+
+    email = request.form['email']
+    user_in_db = db.session.query(User).filter(User.email==email).first()
+
+    if not user_in_db:
+        flash("User not registered")
+        return redirect("/register")
+
+    if not user_in_db.is_activated:
+        flash("You need to activate your account first")
+        return redirect("/login")
+
+    reset_pass_number = randint(10**8, 10**12)
+    number_in_db = db.session.query(Activation).filter(Activation.activation_number==reset_pass_number).first()
+    while number_in_db:
+        reset_pass_number = randint(10**8, 10**12)
+
+    new_activation = Activation(activation_number=reset_pass_number, user_id=user_in_db.user_id)
+    db.session.add(new_activation)
+    db.session.commit()
+    send_email(email, reset_pass_number, 'forgot_pass')
+    flash("Please check your email to reset your password")
+    return redirect("/login")
+
+
+@app.route('/reset/<reset_number>', methods=['GET'])
+def reset_process(reset_number):
+    """Url in email that allows user to change their password"""
+
+    return render_template("reset_password.html", num=reset_number)
+
+
+@app.route('/reset/<reset_number>', methods=["POST"])
+def update_password(reset_number):
+    """Updates users table with new password"""
+
+    new_password = argon2.hash(request.form["new_password"])
+    number_in_db = db.session.query(Activation).get(reset_number)
+
+    if not number_in_db:
+        flash("You need to be a registered user to reset a password")
+        return redirect("/register")
+
+    user_id = number_in_db.user_id
+    user = db.session.query(User).get(user_id)
+    user.password = new_password
+    db.session.commit()
+    flash("Password successfully updated")
+    return redirect("/login")
 
     
 @app.route('/login', methods=['GET'])
@@ -273,6 +334,20 @@ def profile(user_id):
     user = db.session.query(User).get(user_id)
 
     return render_template("user.html", user=user)
+
+@app.route("/edit_profile", methods=['POST'])
+def edit_profile():
+    """Edit user's profile"""
+
+    user_id = request.form.get("user_id")
+    description = request.form.get("description")
+
+    user = db.session.query(User).get(int(user_id))
+    user.description = description
+    db.session.commit()
+
+    return jsonify({"description": description})
+
 
 @app.route("/user_actions.json")
 def user_map():

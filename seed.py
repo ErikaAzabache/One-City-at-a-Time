@@ -4,7 +4,7 @@ import foursquare
 import pprint 
 import pickle
 import csv
-from models import connect_to_db, db, Country, City, Place, User, Tag, PlaceTag, Action, Actiontype, Activation
+from models import connect_to_db, db, Country, City, Place, User, Tag, PlaceTag, Action, Actiontype, Activation, Comment
 from random import randint, choice
 from passlib.hash import argon2
 
@@ -120,8 +120,9 @@ def load_users():
         city_id = db.session.query(City).filter(City.name==city).first().city_id
         is_activated = choice(is_activated_list)
         password = argon2.hash(password)
+        description = "I love traveling, meeting new people, trying different kinds of food and learning new languages. There are so many places to visit and very little time!"
         
-        user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, is_activated=is_activated, picture=profile_pic)
+        user = User(name=name, lastname=lastname, city_id=city_id, email=email, password=password, is_activated=is_activated, picture=profile_pic, description=description)
         db.session.add(user)
     db.session.commit()
 
@@ -159,6 +160,29 @@ def load_activations():
 
         activation = Activation(activation_number=activation_number, user_id=user_id)
         db.session.add(activation)
+    db.session.commit()
+
+def load_comments():
+    """Records of comments by users about places"""
+    text1 = "This place is fantastic! I've been here at least 3 times!"
+    text2 = "So overrated! Not worth your money OR time!"
+    text3 = "So crowded in the weekend. Probably going back but only on a weekday."
+    text4 = "A friend of mine has been here and she thought it was amazing. Strongly considering visiting next month."
+    text5 = "I used to live nearby but never been here. Now that I moved I really regret not taking the time to go there."
+    text6 = "Used to be better, now is so mainstream."
+    text7 = "A must every time I'm in the city."
+    text8 = "Avoid this overrated place at all cost."
+    text9 = "This place blew my mind! Definitely comming back."
+    text10= "Noup, never comming back."
+    reviews = [text1, text2, text3, text4, text5, text6, text7, text8, text9, text10]
+
+    for i in range(1, 1000):
+        user_id = randint(1, 1000)
+        place_id = randint(1, 3030)
+        review = choice(reviews)
+
+        comment = Comment(user_id=user_id, place_id=place_id, review=review)
+        db.session.add(comment)
     db.session.commit()
 
 

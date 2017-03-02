@@ -25,7 +25,7 @@ function updateActionTable(evt){
         "place_id": this.id.slice(4)
     };
 
-    $.post("/add-action", 
+    $.post("/add-action.json", 
            formInputs,
            showConfirmation
            );
