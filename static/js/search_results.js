@@ -1,27 +1,25 @@
 // -------------ACTIONS UPDATED IN DATABASE
 function showConfirmation(result) {
-    console.log(result);
+    
     if (result.result_code == "login"){
         window.location.href = "/login";
     } else if (result.result_code == "added"){
         var  buttonClicked = result.action_type + "-" + result.place_id;
         $("#"+buttonClicked).addClass("selected");
-
+        console.log("Class added!");
     } else{
         var  buttonClicked = result.action_type + "-" + result.place_id;
         $("#"+buttonClicked).removeClass("selected");
-
+        console.log("Class removed!");
     }
 }
 
-"sav-{{ place.place_id }}"
-
 function updateActionTable(evt){
     evt.preventDefault();
-    console.log(this.classList[0]+" button has been clicked.");
+    console.log(this.classList[2]+" button has been clicked.");
 
     var formInputs = {
-        "action_type": this.classList[0],
+        "action_type": this.classList[2],
         "place_id": this.id.slice(4)
     };
 
@@ -46,7 +44,8 @@ function showResults(resList){
         var i;
         var j;
         for (i = 0; i < resList.length; i++) {
-            $('#data_goes_here').append("<li> <a href='/places/"+ resList[i].place_id + "'>" + resList[i].name + "</a> <div id='tag-div-" + resList[i].place_id + "'> Tag: </div> <div>Rating: " + resList[i].rating + "</div> <form id='add-action-form'> <input type='button' id='sav-" + resList[i].place_id + "' class='sav' value='Bookmark'> <input type='button' id='hbh-" + resList[i].place_id + "' class='hbh' value='Been here'> </form> </li>");   
+            $('#data_goes_here').append("<li> <a href='/places/"+ resList[i].place_id + "'>" + resList[i].name + "</a> <div id='tag-div-" + resList[i].place_id + "'> Tag: </div> <form id='add-action-form'> <button type='button' id='sav-" + resList[i].place_id + "' class='btn btn-default sav' value='Bookmark'> Save <span id='sav-" + resList[i].place_id + "-glyp' class='glyphicon glyphicon-star-empty' aria-hidden='true'></span> </button> <button type='button' id='hbh-" + resList[i].place_id + "' class='btn btn-default hbh' value='Been here'> Been Here <span id='hbh-" + resList[i].place_id + "-glyp' class='glyphicon glyphicon-flag' aria-hidden='true'></span> </button> </form> </li>");
+
             if (jQuery.inArray("sav", resList[i].place_actions) > -1){
                 var buttonId = "sav-" + resList[i].place_id;
                 console.log(buttonId);

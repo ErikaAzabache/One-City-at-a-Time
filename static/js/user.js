@@ -46,11 +46,15 @@ function editDone(){
         $(".delete-action").removeAttr('hidden');
         $("#edit-description-button").removeAttr('hidden');
         $('#edit-profile').attr('value','Done');
+        $("#edit-profile-glyp").removeClass("glyphicon glyphicon-pencil");
+        $("#edit-profile-glyp").addClass("glyphicon glyphicon-ok");
     } else{
         $("#update-pic").prop('hidden','hidden');
         $(".delete-action").prop('hidden','hidden');
         $("#edit-description-button").prop('hidden','hidden');
         $('#edit-profile').attr('value','Edit');
+        $("#edit-profile-glyp").removeClass("glyphicon glyphicon-ok");
+        $("#edit-profile-glyp").addClass("glyphicon glyphicon-pencil");
     }
 }
 
