@@ -3,13 +3,13 @@ import sys
 import smtplib
 
 def send_email(receiver, activation_number, subject):
-    my_pass = os.environ['DARKBOLI_PASSWORD']
+    my_pass = os.environ['EMAIL_PASSWORD']
 
     receiver_email = receiver
-    sender_email = 'onecity@darkboli.net'
+    sender_email = 'email@emailserver.com'
     sender_pwd = my_pass
 
-    smtpserver = smtplib.SMTP('darkboli.net', 587) #not self hosted.
+    smtpserver = smtplib.SMTP('emailserver.com', 587) #not self hosted.
 
     smtpserver.ehlo() #Identify yourself to an ESMTP server using EHLO
     smtpserver.starttls() #Requests the mail server to start TLS/SSL negotiation and protect the connection with security layer.
