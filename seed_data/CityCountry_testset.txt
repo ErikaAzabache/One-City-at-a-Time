@@ -1,6 +1,12 @@
-Hong Kong, Hong Kong   
+London, United Kingdom
+Cairo, Egypt
+Mumbai, India
+Kolkata, India
+Hong Kong, Hong Kong
+Tokyo, Japan
+San Francisco, United States
+New York City, United States   
 Singapore, Singapore   
-Stockholm, Sweden
-New York City, United States    
-London, United Kingdom  
+Stockholm, Sweden     
 Cartagena, Colombia
+Rio De Janeiro, Brazil

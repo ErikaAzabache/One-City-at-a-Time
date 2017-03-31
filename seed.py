@@ -8,7 +8,7 @@ from models import connect_to_db, db, Country, City, Place, User, Tag, PlaceTag,
 from random import randint, choice
 from passlib.hash import argon2
 
-client = foursquare.Foursquare(client_id = os.environ['CLIENT_ID'] , client_secret = os.environ['CLIENT_SECRET'])
+client = foursquare.Foursquare(client_id = os.environ['FS_CLIENT_ID'] , client_secret = os.environ['FS_CLIENT_SECRET'])
 
 with open('seed_data/alpha2_country_codes.csv', 'r') as csvfile:
     csvreader = csv.reader(csvfile)
