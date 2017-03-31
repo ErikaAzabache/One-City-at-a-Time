@@ -1,59 +1,63 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <h2>Register</h2>
-
-    <form action="register" method="POST">
-        <div class="form-group">
-            <label>
-                Name
-                <input type="text" name="name" required class="form-control">
-            </label>
+    <div id="register-container" class="col-xs-4 col-xs-offset-4">
+        <div class="well bs-component" id="registration-well">
+            <form action="register" method="POST" class="form-horizontal">
+                <fieldset>
+                    <legend>Register</legend>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Name</label>
+                        <div class="col-xs-10">
+                          <input type="text" name="name" required class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Lastname</label>
+                        <div class="col-xs-10">
+                          <input type="text" name="lastname" required class="form-control" placeholder="Lastname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">City</label>
+                        <div class="col-xs-10">
+                          <input type="text" name="city" class="form-control" placeholder="City">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Country</label>
+                        <div class="col-xs-10">
+                            <select name="sel-country" class="form-control">
+                                {% for country in countries %}
+                                    <option value="{{ country }}">{{ country }}</option>
+                                {% endfor %}
+                            </select>       
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Email</label>
+                        <div class="col-xs-10">
+                          <input type="email" name="email" required class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Password</label>
+                        <div class="col-xs-10">
+                          <input type="password" name="password" required class="form-control" placeholder="Password">
+                        </div>
+                    </div>
+                    <div id="div-registration-btn">
+                        <button type="submit" value="Register" class="btn btn-primary"> Register
+                        </button>
+                    </div>
+                </fieldset>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label>
-                Lastname
-                <input type="text" name="lastname" required class="form-control">
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label>
-                City
-                <input type="text" name="city" class="form-control">
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label>
-                Country
-                <select name="sel-country">
-                    {% for country in countries %}
-                        <option value="{{ country }}">{{ country }}</option>
-                    {% endfor %}
-                </select>  
-            </label>             
-        </div>
-
-        <div class="form-group">
-            <label>
-                Email
-                <input type="email" name="email" required class="form-control">
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label>
-                Password
-                <input type="password" name="password" required class="form-control">
-            </label>
-        </div>
-
+    </div>
+    <div id="doodle-container" class="col-xs-4">
         <div>
-            <input type="submit" value="Register">
+            <img src="/static/images/balloon-doodle-edit.jpg" class="doodle" alt="doodle">
         </div>
-
-    </form>
+    </div>    
 </div>
 {% endblock %}

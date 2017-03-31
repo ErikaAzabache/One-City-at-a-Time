@@ -2,79 +2,90 @@
 {% block content %}
 <div class="user-profile-container">
   <div class="row">
-    <div class="col-md-4 profile_info">
-      <div id="profile-info">
-        <span>
-          <h2 id="user-info">{{ user.name }} {{ user.lastname }}</h2>
-          <span id="hidden-userid" hidden> {{ user.user_id }} </span>
-          {% if session.get("user_id") == user.user_id%}
+    <div class="col-xs-4 profile_info">
+      <div class="row">
+        <div class="col-xs-6">
+          <div id="profile-basic-info">
+            <h2 id="user-info">{{ user.name }} {{ user.lastname }}</h2>
+            <span id="hidden-userid" hidden> {{ user.user_id }} </span>
+            {% if session.get("user_id") == user.user_id%}
               <button type="button" id="edit-profile" value="Edit" class="btn-info">
                 <span id="edit-profile-glyp" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
               </button> 
-          {% endif %}
-        </span>
-
-        <div id="profile-pic">    
-          <form enctype="multipart/form-data">
-            <img src="{{user.picture}}" alt="Your profile picture" id="preview"><br>
-            <div id="update-pic" class="form-group file-container" hidden>
-              <input id="user-photo" type="file" name="file">    
-              <input type="button" id="upload-pic" value="Upload" class="btn-info">
+            {% endif %}
+            <h4>City: {{ user.city.name }}</h4>
+            <h4>Country: {{ user.city.country.name }}</h4>
           </div>
-          </form>
         </div>
+        <div class="col-xs-6">
+          <div id="profile-pic">    
+            <form enctype="multipart/form-data">
+              <img src="{{user.picture}}" alt="Your profile picture" id="preview"><br>
+              <div id="update-pic" class="form-group file-container" hidden>
+                <label class="btn btn-info btn-file">
+                    Browse <input id="user-photo" type="file" style="display: none;" name="file">
+                </label>
+                <input type="button" id="upload-pic" value="Upload" class="btn btn-info">
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
-        <h6>City: {{ user.city.name }}</h6>
-        <h6>Country: {{ user.city.country.name }}</h6>
-        <h6>About me:</h6>
-        <div id="div-edit-description" class="form-group" hidden>
+      <div class="row">
+        <div id="profile-more-info">
+          <h4 id="about-me">About me:</h4>
+          <div id="div-edit-description" class="form-group" hidden>
             <textarea id= "text-description" name="edit_description" value="{{user.description}}"></textarea>
             <button type="button" id="done-description-button" value="Done" class="btn-info">
               <span id="done-description-glyp" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
             </button>
-        </div>
-        <div id="div-show-description">
-            <h6 id="db-text-description" class="well well-lg">{{user.description}}</h6>
+          </div>
+          <div id="div-show-description">
+            <h5 id="db-text-description" class="well well-lg">{{user.description}}</h5>
             <button type="button" id="edit-description-button" value="Edit" class="btn-info" hidden>
               <span id="edit-description-glyp" class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-            </button>
+            </button>    
+          </div>
         </div>
-        <h6> {{user.name}}'s saved places:</h6>
+
+        <h4 id="more-less"> {{user.name}}'s saved places:</h4>
           {% if not user.actions%}
           <div>
-            <h6 style="text-indent: 20px">No places to show</h6>
+            <h5 style="text-indent: 20px">No places to show</h5>
           </div>
           {% endif %}
-          <ul>
+          <ul class="term-list">
           {% for user_action in user.actions %}
             {% if user_action.action_code=='sav' %}
               <div id="div-sav-{{ user_action.place.place_id }}">
-                <li>
-                  <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>  
+                <li class="term-item">
+                  <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a> 
+                  <h5 style="display:inline-block">in {{user_action.place.city.name}}, {{user_action.place.city.country.name}}</h5> 
                   <button type="button" id="user-sav-{{ user_action.place.place_id }}" class="delete-action" value="delete" hidden>
                    <span id="sav-{{ user_action.place.place_id }}-glyp" class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
-                  </button>
-                  
+                  </button>  
                 </li>
               </div> 
             {% endif %}
           {% endfor %}
           </ul>
 
-        <h6> Places {{user.name}} has been:</h6>
+        <h4 id="more-less"> Places {{user.name}} has been:</h4>
           {% if not user.actions%}
           <div>
-            <h6 style="text-indent: 20px">No places to show</h6>
+            <h5 style="text-indent: 20px">No places to show</h5>
           </div>
           {% endif %}
-          <ul>
+          <ul class="term-list">
           {% for user_action in user.actions %}
             {% if user_action.action_code=='hbh' %}
               <div id="div-hbh-{{ user_action.place.place_id }}">
-                <li>
+                <li class="term-item">
                   <a href="/places/{{ user_action.place.place_id }}">{{ user_action.place.name }}</a>
-                  <button type="button" id="user-hbh-{{ user_action.place.place_id }}" class="delete-action" value="delete" hidden>
-                   <span id="hbh-{{ user_action.place.place_id }}-glyp" class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+                  <h5 style="display:inline-block">in {{user_action.place.city.name}}</h5>
+                    <button type="button" id="user-hbh-{{ user_action.place.place_id }}" class="delete-action" value="delete" hidden>
+                      <span id="hbh-{{ user_action.place.place_id }}-glyp" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   </button>
                 </li>
               </div> 
@@ -84,7 +95,7 @@
       </div>
     </div>
 
-    <div class="col-md-8">
+    <div class="column-xs-8">
       <div class="map-container">
         <div id="user-map"> </div>
       </div>
@@ -96,8 +107,5 @@
 <script src="/static/js/mapstyles.js"></script>
 <script src="/static/js/user-map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHEGJM0Yf1P1WuG28POey5YVbICariFyk&callback=getUserActions"></script>
-
-
-
 
 {% endblock %}

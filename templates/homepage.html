@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row" id="home-search">
+<div class="row container-fluid" id="home-search">
     <div class="col-xs-6 col-xs-offset-3" id="extend-div">
         <form action="/search" method="POST">
-            <div class="form-group">
-                <h2 id="main-title">Where are you going next?</h2>
+            <div class="form-group" id="div-main-search">
+                <div>
+                    <h2 id="main-title">Where are you going next?</h2>
+                </div>
+                <div>
                     <input id= "city-search" type="text" name="city_search" class="form-control" required>
                     <input id="search-button" type="submit" value="Search" class="btn btn-primary">
+                </div>
             </div>
         </form>
     </div>

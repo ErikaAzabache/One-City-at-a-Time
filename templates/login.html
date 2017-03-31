@@ -1,27 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <h2>Login</h2>
-    <form action="/login" method="POST">
-        <div class="form-group">
-            <label>Email:
-                <input type="email" name="email" required class="form-control">
-            </label>
+    <div id="login-container" class="col-xs-4 col-xs-offset-4">
+        <div class="well bs-component" id="login-well">
+            <form action="/login" method="POST" class="form-horizontal">
+                <fieldset>
+                    <legend>Login</legend>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Email</label>
+                        <div class="col-xs-10">
+                          <input type="email" name="email" required class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">Password</label>
+                        <div class="col-xs-10">
+                          <input type="password" name="password" required class="form-control" placeholder="Password">
+                        </div>
+                    </div>
+                    <div id="div-login-btn">
+                        <div class="form-group">
+                            <input type="submit" value="Log In" class="btn btn-primary">
+                        </div>
+                        <div class="form-group">
+                            <a href="/forgot_password">Forgot password?</a>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
         </div>
-
-        <div class="form-group">
-            <label>Password:
-                <input type="password" name="password" required class="form-control">
-            </label>
+    </div>
+    <div id="doodle-container3" class="col-xs-4">
+        <div>
+            <img src="/static/images/balloon-doodle-edit.jpg" class="doodle" alt="doodle">
         </div>
-
-        <div class="form-group">
-            <input type="submit" value="Log In">
-        </div>
-        <div class="form-group">
-            <a href="/forgot_password">Forgot password?</a>
-        </div>
-
-    </form>
-</div>
+    </div>
+<div>    
 {% endblock %}

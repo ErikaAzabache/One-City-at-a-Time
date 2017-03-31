@@ -2,20 +2,22 @@
 {% block content %}
 <div class="results-container">
     <div class="row">
-        <div class="alt-search-container">
-            <div class="col-xs-6">
-                <form id="alt-search">
-                    <div>
-                        <h5>Where are you going next?</h5>
-                            <input id= "city-search-alt" type="text" name="city_search" class="form-control" required>
-                            <button id="search-button-alt" type="submit" value="Search" class="btn btn-primary">
-                                <span id="edit-profile-glyp" class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            </button>
-                    </div>
-                </form>
+        <div class="col-xs-5">
+            <div class="alt-search-container">
+                <div>
+                    <form id="alt-search">
+                        <div>
+                            <h4>Where are you going next?</h4>
+                                <input id= "city-search-alt" type="text" name="city_search" class="form-control" required>
+                                <button id="search-button-alt" type="submit" value="Search" class="btn btn-primary">
+                                    <span id="edit-profile-glyp" class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </button>
+                        </div>
+                    </form>
+                </div>
 
                 <div>
-                    <h6>Sort By:</h6>
+                    <h5>Sort By:</h5>
                     <form id="sort-form">
                         <button type="button" id="sort-default" class="sort-btn btn btn-success" value="Default"> Default
                             <span id="edit-profile-glyp" class="glyphicon glyphicon-sort-by-attributes-alt" aria-hidden="true"></span>
@@ -29,31 +31,27 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="results-list-container">
-            <div class="col-xs-6">
+            <div class="results-list-container">
                 <h2>Results: <span id="hidden-span" hidden> {{ city }} </span></h2>
                 <div id="results-list">
                     <ul id="place-results">
                         {% for place in places %}
-                            <div>
+                            <div class="one-result">
                                 <li>
                                     <a href="/places/{{ place.place_id }}">{{ place.name }}</a>
-                                    <div> Tag:
+                                    <div>
                                         {% for tag in place.tags %}
-                                            {{ tag.tag_name }}.
+                                            {{ tag.tag_name }}
                                         {% endfor %}
                                     </div>
                                     <!-- <div>Rating: {{place.rating}}</div>                         -->
                                     <form id="add-action-form">
-                                        <button type="button" id="sav-{{ place.place_id }}" {% if place.place_id in user_sav %} class="btn btn-default sav selected" {% else %} class="btn btn-default sav" {% endif %} value="Bookmark">Save
+                                        <button type="button" id="sav-{{ place.place_id }}" {% if place.place_id in user_sav %} class="btn btn-default btn-sm sav selected" {% else %} class="btn btn-default btn-sm sav" {% endif %} value="Bookmark">Save
                                             <span id="sav-{{ place.place_id }}-glyp" class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                                         </button>
                                         
-                                        <button type="button" id="hbh-{{ place.place_id }}" {% if place.place_id in user_hbh %} class="btn btn-default hbh selected" {% else %} class="btn btn-default hbh" {% endif %} value="Been here">Been Here
+                                        <button type="button" id="hbh-{{ place.place_id }}" {% if place.place_id in user_hbh %} class="btn btn-default btn-sm hbh selected" {% else %} class="btn btn-default btn-sm hbh" {% endif %} value="Been here">Been Here
                                             <span id="hbh-{{ place.place_id }}-glyp" class="glyphicon glyphicon-flag" aria-hidden="true"></span>
                                         </button>
                                     </form>
@@ -61,11 +59,12 @@
                             </div>
                         {% endfor %}
                     </ul>
-                </div>
-            </div>    
+                </div>   
+            </div>
         </div>
-        <div class="results-map-container">
-            <div class="col-xs-6">
+
+        <div class="col-xs-6">
+            <div class="results-map-container">
                 <div id="results-map"></div>
             </div>
         </div>    
