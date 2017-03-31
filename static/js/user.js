@@ -64,7 +64,8 @@ function hideRemovedActions(result) {
     console.log(result);
     if (result.result_code == "undo"){
         var div = "div-" + result.action_type + "-" + result.place_id;
-        $("#"+div).prop('hidden','hidden')  
+        $("#"+div).prop('hidden','hidden');
+        getUserActions();
     } 
 }
 
@@ -121,3 +122,17 @@ function storeDescription(){
 };
 
 $("#done-description-button").on('click', storeDescription);
+//--------------------Show less/more-----------------------//
+$('.term-list').each(function() {
+    var $list = $(this);
+    // $list.before('<button class="btn-info more_less">More</button>')
+    //btn btn-primary btn-xs
+    $list.before('<a href="#" class="more_less">Show more</a>')
+   $list.find('.term-item:gt(1)').hide();
+});
+
+$('.more_less').click(function() {
+    var $btn = $(this)
+    $btn.next().find('.term-item:gt(1)').slideToggle();    
+    $btn.text($btn.text() == 'Show more' ? 'Show less' : 'Show more');    
+});

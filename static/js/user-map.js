@@ -25,7 +25,8 @@ function initMap(latitud, longitud) {
     zoomControl: true,
     panControl: false,
     streetViewControl: false,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    styles: MAPSTYLES
   });
 }
   

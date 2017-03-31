@@ -47,21 +47,21 @@ function initMap(latitud, longitud) {
         
         var i, place, marker, html;
         var infoWindow = new google.maps.InfoWindow({
-        width: 150
+        width: 100
         });
          
         var sav_icon = {
             url: '/static/js/icons/sav.png',
             scaledSize: new google.maps.Size(40, 40), // 256 × 256
             origin: new google.maps.Point(0, 0), 
-            anchor: new google.maps.Point(0, 0) 
+            anchor: new google.maps.Point(0, 20) 
         };
 
         var hbh_icon = {
             url: '/static/js/icons/hbh.png',
             scaledSize: new google.maps.Size(40, 40), // 256 × 256
             origin: new google.maps.Point(0, 0), 
-            anchor: new google.maps.Point(0, 0) 
+            anchor: new google.maps.Point(0, 40) 
         };
 
 

@@ -3,10 +3,44 @@
   background-color: #3498db;
   border-color: #3498db;
 }*/
+.place-page-container{
+  padding: 20px;
+}
+
+#place-description{
+  width: 85%;
+}
+
+#place-info{
+margin-left: 20px;
+}
+
+#place-comments{
+margin-right: 20px;
+padding: 0px;
+}
+/*.avatar-comment{
+vertical-align: middle;
+}*/
+.avatar{
+  float: left;
+  margin-right: 5px;
+}
+#div-add-comment{
+  margin-bottom: 40px;
+}
+
+#comments-container{
+  padding-top: 50px;
+}
+.panel-comment{
+  width: 70%;
+}
 .results-container{
   margin: 20px;
 }
 .results-map-container{
+  margin: 10px;
   padding-top: 20px;
 }
 #city-search-alt{
@@ -17,9 +51,9 @@
 width: 70%;
 }
 
-#main-title{
+/*#main-title{
 text-align: center;
-}
+}*/
 
 #city-search{
   width: 80%;
@@ -30,8 +64,7 @@ text-align: center;
   margin-left: 15px;
 }
 
-.profile_info{
-  width: 25%;
+#user-info{
   display: inline-block;
 }
 
@@ -40,11 +73,20 @@ text-align: center;
 }
 
 .user-profile-container{
- padding: 20px; 
+ padding-left: 30px; 
 }
 
-#user-info{
-display: inline-block;
+#profile-pic{
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+#text-description{
+  display: inline-block;
+}
+
+#db-text-description{
+  display: inline-block;
 }
 
 .filters { 
@@ -53,7 +95,7 @@ display: inline-block;
 }
 
 #edit-profile{
-  margin-left: 30px;
+  margin-left: 4px;
   display: inline-block;
 }
 
@@ -72,11 +114,10 @@ display: inline-block;
 #results-map{
   height: 800px;
   width: 800px;
-  margin: 10px;
 }
 #user-map{
-  height: 500px;
-  width: 500px;
+  height: 600px;
+  width: 1000px;
 }
 
 .window-content {
@@ -84,10 +125,10 @@ display: inline-block;
 }
 
 
-h1, h2, h3, .navbar-brand { font-family: "sans-serif"; }
+h1, h2, h3, .navbar-brand { font-family: "Roboto", sans-serif; }
 
 p { 
-  font-family: "sans-serif";
+  font-family: "Roboto", sans-serif;
   width: 50%;
   margin: 1em;
   padding: 1em; 
@@ -137,6 +178,7 @@ p {
   background-size: cover;
   background-position: center center;
   height: 800px;
+}
 
 /*background-size: cover;*/
 }
@@ -144,7 +186,42 @@ p {
 html,body { 
   height:100%; 
 }
+
 #extend-div{
   margin-top: 10%;
   margin-bottom: 30%;
+}
+.doodle{
+  margin-top: 40%;
+}
+
+#more-less{
+  display: inline-block;
+  padding-right: 10px;
+}
+#registration-confirmation, #activation-error, #forgot-password{
+  padding: 20px;
+}
+#login-container, #register-container{
+  padding: 20px;
+}
+#registration-well{
+  padding-left: 20px;
+}
+#div-resend, #div-login-btn, #div-registration-btn{
+  text-align: center;
+}
+#registration-confirmation, #forgot-password{
+  text-align: center;
+  margin-top: 20px;
+}
+.delete-action{
+  background-color: transparent;
+  border: none;
+}
+.one-result{
+  margin-bottom: 15px;
+}
+#div-main-search{
+  text-align: center;
 }
