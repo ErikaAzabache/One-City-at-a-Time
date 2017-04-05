@@ -17,11 +17,15 @@ __Backend:__ Python, Flask, PostgreSQL, SQLAlchemy <br/>
 __APIs:__ Foursquare, Google maps, Imgur, Bing Image Search <br/>
 
 ## <a name="features"></a>Features
-* Create an account and activate it.<br/>
-* Logged in or not, search points of interest in a city. Sort results by popularity (most and least popular) or name.<br/>
-* If logged in, user can save or "been here" a place.<br/>
-* User profile is editable.<br/>
-* User (logged in ot not) can check more information about a place. Logged in user can also leave comments.<br/>
+Create an account and activate it.<br/>
+
+Logged in or not, search points of interest in a city. Sort results by popularity (most and least popular) or name. If logged in, user can save or "been here" a place.<br/>
+
+User profile is editable.<br/>
+<img src="/static/images/_readme/OCAAT_EditProfile.gif">
+<br/><br/><br/>
+
+User (logged in ot not) can check more information about a place. Logged in user can also leave comments.<br/>
 
 ## <a name="installation"></a>Setup/Installation
 
