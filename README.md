@@ -1,6 +1,8 @@
 # One City at a Time
 One City at a Time is an app meant for users that love traveling. The app shows main points of interest in popular cities around the world. Registered users can save their preferred spots for future trips, mark places they have already been and leave comments/reviews in the place's page.
 
+<img src="/static/images/_readme/OCAAT_homepage.png">
+
 ## Table of Contents
 
 * [Tech Stack](#tech-stack)
