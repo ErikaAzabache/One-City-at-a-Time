@@ -68,7 +68,7 @@ $ python server.py
 ```
 If you want to use SQLAlchemy to query the database, run in interactive mode
 ```
-$ python -i model.py
+$ python -i models.py
 ```
 ## <a name="future"></a>Looking Ahead
 * Test app for security vulnerabilities 
