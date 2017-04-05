@@ -35,7 +35,7 @@ User (logged in ot not) can check more information about a place. Logged in user
 
 ## <a name="installation"></a>Setup/Installation
 
-####Requirements:
+Requirements:
 
 - PostgreSQL
 - Python 2.7
