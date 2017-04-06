@@ -7,12 +7,12 @@ def send_email(receiver, activation_number, subject):
     receiver_email = receiver
     sender_email = os.environ['EMAIL_SENDER']
     sender_pwd = os.environ['EMAIL_PASSWORD']
-
+    sender_user = os.environ['USER_SENDER']
     smtpserver = smtplib.SMTP(os.environ['EMAIL_SERVER'], 587) #not self hosted.
 
     smtpserver.ehlo() #Identify yourself to an ESMTP server using EHLO
     smtpserver.starttls() #Requests the mail server to start TLS/SSL negotiation and protect the connection with security layer.
-    smtpserver.login(sender_email, sender_pwd)
+    smtpserver.login(sender_user, sender_pwd)
 
     if subject=='activation':
         msg_header = 'To:' + receiver_email + '\n' + 'From: ' + sender_email + '\n' + 'Subject: Email Confirmation \n'
