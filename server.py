@@ -247,8 +247,10 @@ def forgot_process():
 
     reset_pass_number = randint(10**8, 10**12)
     number_in_db = db.session.query(Activation).filter(Activation.activation_number==reset_pass_number).first()
+    
     while number_in_db:
         reset_pass_number = randint(10**8, 10**12)
+        number_in_db = db.session.query(Activation).filter(Activation.activation_number==reset_pass_number).first()
 
     new_activation = Activation(activation_number=reset_pass_number, user_id=user_in_db.user_id)
     db.session.add(new_activation)
