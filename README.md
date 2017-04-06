@@ -61,10 +61,19 @@ $ pip install -r requirements.txt
 ```
 Get your own secret keys for [Foursquare](https://developer.foursquare.com), [Google Maps](https://developers.google.com/maps/), [Imgur](https://api.imgur.com/oauth2), and [Bing Image Search](https://www.microsoft.com/cognitive-services/en-us/bing-image-search-api). Save them in your `secrets.sh` file. Your file should look something like this:
 ```
-export FS_CLIENT_ID="123"
-export FS_CLIENT_SECRET="123"
-export IMGUR_CLIENT_ID="123"
-export IMGUR_CLIENT_SECRET="123"
+export EMAIL_PASSWORD="ABC123XYZ"
+export EMAIL_SENDER="my_user@emailserver.com"
+export EMAIL_SERVER="emailserver.com"
+export USER_SENDER="my_user"
+
+export FS_CLIENT_ID="MYFOURSQUARECLIENTID"
+export FS_CLIENT_SECRET="MYFOURSQUARECLIENTSECRET"
+
+export IMGUR_CLIENT_ID="MYIMGURCLIENTID"
+export IMGUR_CLIENT_SECRET="MYIMGURCLIENTSECRET"
+
+export BING_CLIENT_ID="MYBINGCLIENTID"
+export BING_CLIENT_SECRET="MYBINGCLIENTSECRET"
 ```
 Create database 'places'.
 ```
